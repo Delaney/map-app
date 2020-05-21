@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import axios from 'axios';
+
 import Map from '../components/Map';
 import InputFields from '../components/InputFields';
+import Marker from '../components/Marker';
 
 class App extends Component {
 	constructor(props) {
@@ -12,11 +15,64 @@ class App extends Component {
 			scriptReady: false,
 			pickup: '',
 			dropoff: '',
-			position: null
+			position: null,
+			map: null,
+			pickupPosition: null,
+			dropoffPosition: null
 		};
 
 		this.loadGMaps = this.loadGMaps.bind(this);
 		this.updateMap = this.updateMap.bind(this);
+		this.setMarker = this.setMarker.bind(this);
+	}
+
+	componentDidMount() {
+		this.loadGMaps();
+	}
+
+	render() {
+		return (
+			<div className="container-fluid">
+				<div className="row justify-content-center">
+					<div className="col-md-12">
+						<div className="card">
+							<div className="card-header">
+								<InputFields
+									onUpdate={this.searchPlaces}
+									setLocation={this.setLocation}
+								/>
+							</div>
+
+							<div className="">
+								{
+									this.state.scriptReady && this.state.position ?
+										<div>
+											<Map
+												position={this.state.position}
+												onLoad={this.setMarker}
+											/>
+										</div>
+										:
+										<div>
+											<h2>Loading</h2>
+										</div>
+								}
+
+								{
+									this.state.map ?
+										<Marker
+											position={this.state.position}
+											map={this.state.map}
+										/>
+										:
+										''
+								}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
 	}
 
 	loadGMaps = (cb) => {
@@ -24,7 +80,7 @@ class App extends Component {
 
 		if (!gm) {
 			const script = document.createElement('script');
-			script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.MIX_MAP_API}`;
+			script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.MIX_MAP_API}&libraries=places`;
 			script.id = 'googleMaps';
 			document.body.appendChild(script);
 
@@ -71,27 +127,26 @@ class App extends Component {
 		}
 	}
 
-	componentDidMount() {
-		this.loadGMaps();
+	setMarker = (map) => {
+		this.setState({map: map});
 	}
 
-	render() {
-		return (
-			<div className="container">
-				<div className="row justify-content-center">
-					<div className="col-md-8">
-						<div className="card">
-							<div className="card-header">React + Laravel</div>
+	setLocation = (name) => {
+		console.log(name);
+		let isPickup = (name == 'pickup') ? true : false;
 
-							<div className="card-body">
-								{this.state.scriptReady && this.state.position ? <Map position={this.state.position} /> : <div><h2>Loading</h2></div>}
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		);
+		this.setState({
+			[(isPickup) ? 'pickupLocation' : 'dropoffLocation']: this.state.position
+		});
 	}
+
+	searchPlaces = (query) => {
+
+	}
+
+	// getPlaceId = (position) => {
+	// 	axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=YOUR_API_KEY`)
+	// }
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));

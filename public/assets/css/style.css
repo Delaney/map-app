@@ -1,0 +1,39 @@
+html, body {
+	height: 100%;
+	font-family: 'Nunito', sans-serif;
+	margin: 0;
+}
+
+.flex-center {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
+.fieldDiv {
+	height: 30px;
+}
+
+.fieldDiv:nth-of-type(1) {
+	margin-bottom: 5px;
+}
+
+.fieldDiv input {
+	height: 100%;
+}
+
+.setCurrentLocation {
+	width: 30px;
+	height: 100%;
+	background: #cccccc;
+	border: 1px solid #888888;
+	border-left: none;
+}
+
+/* .setCurrentLocation:nth-of-type(1) {
+	border-bottom: none;
+}
+
+.setCurrentLocation:nth-of-type(2) {
+	border-top: none;
+} */

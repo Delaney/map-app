@@ -12,6 +12,43 @@ export default class InputFields extends Component {
 		this.updateField = this.updateField.bind(this);
 	}
 
+	render() {
+		return (
+			<div className="fieldContainer">
+				<div className="fieldDiv flex-center">
+					<input
+						type='text'
+						placeholder="Pickup Address"
+						name='pickup'
+						value={this.state.pickup}
+						onChange={this.updateField}
+					/>
+					<div
+						className="setCurrentLocation"
+						data-name="pickup"
+						onClick={this.setCurrentAsPickup}
+					></div>
+						
+				</div>
+
+				<div className="fieldDiv flex-center">
+					<input
+						type='text'
+						placeholder="Dropoff Address"
+						name='dropoff'
+						value={this.state.dropoff}
+						onChange={this.updateField}
+					/>
+					<div
+						className="setCurrentLocation"
+						data-name="dropoff"
+						onClick={this.setCurrentAsPickup}
+					></div>
+				</div>
+			</div>
+		)
+	}
+
 	updateField = (event) => {
 		const target = event.target;
 
@@ -20,27 +57,7 @@ export default class InputFields extends Component {
 		});
 	}
 
-	render() {
-		return (
-			<div className="fieldContainer">
-				<div className="fieldDiv">
-					<input
-						type='text'
-						placeholder="Pickup Address"
-						name={pickup}
-						onChange={this.updateField()}
-					/>
-				</div>
-
-				<div className="fieldDiv">
-					<input
-						type='text'
-						placeholder="Dropoff Address"
-						name={dropoff}
-						onChange={this.updateField()}
-					/>
-				</div>
-			</div>
-		)
+	setCurrentAsPickup = (event) => {
+		this.props.setLocation(event.target.dataset['name']);
 	}
 }

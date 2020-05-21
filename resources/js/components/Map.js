@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
 
+import Marker from './Marker';
+
 export default class Map extends Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			map: null,
+			infoWindow: null
+		};
 	}
 
 	initMap = () => {
 		const map = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: this.props.position.lat, lng: this.props.position.lon},
-			zoom: 10
+			zoom: 15
 		});
+
+		const infoWindow = new google.maps.InfoWindow();
+
+		this.props.onLoad(map);
 	}
 
 	componentDidMount() {
