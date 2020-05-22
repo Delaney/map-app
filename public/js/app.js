@@ -65970,6 +65970,9 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
+var componentForm = {
+  street_number: 'short_name'
+};
 
 var InputFields = /*#__PURE__*/function (_Component) {
   _inherits(InputFields, _Component);
@@ -65983,6 +65986,39 @@ var InputFields = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
 
+    _defineProperty(_assertThisInitialized(_this), "initPickup", function () {
+      var circle = new google.maps.Circle({
+        center: _this.props.position,
+        radius: 50000
+      }); // const re = new google.maps.places.ComponentRestriction({ country: 'ng'});
+
+      var pickupAutocomplete = new google.maps.places.Autocomplete(document.getElementById('pickup-input'), {
+        bounds: circle.getBounds(),
+        // componentRestrictions: new google.maps.places.ComponentRestrictions({country: 'ng'}),
+        types: ['geocode'],
+        fields: ['address_component', 'place_id', 'geometry'],
+        strictBounds: true
+      }); // pickupAutocomplete.setFields(['address_component', 'name']);
+
+      pickupAutocomplete.addListener('place_changed', _this.fillInAddress);
+
+      _this.setState({
+        pickupAutocomplete: pickupAutocomplete
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "fillInAddress", function () {
+      var place = _this.state.pickupAutocomplete.getPlace();
+
+      console.log(place); // for (let i = 0; i < place.address_components.length; i++) {
+      // 	let addressType = place.address_components[i].types[0];
+      // 	if (componentForm[addressType]) {
+      // 		let val = place.address_components[i][componentForm[addressType]];
+      // 		document.getElementById(addressType).value = val;
+      // 	}
+      // }
+    });
+
     _defineProperty(_assertThisInitialized(_this), "updateField", function (event) {
       var target = event.target;
 
@@ -65995,18 +66031,20 @@ var InputFields = /*#__PURE__*/function (_Component) {
 
     _this.state = {
       pickup: '',
-      dropoff: ''
+      dropoff: '',
+      pickupAutocomplete: null
     };
+    _this.initPickup = _this.initPickup.bind(_assertThisInitialized(_this));
     _this.updateField = _this.updateField.bind(_assertThisInitialized(_this));
     return _this;
-  } // componentDidMount() {
-  // 	const pickupInput = new google.maps.places.Autocomplete(document.getElementById('pickup-field'), {
-  // 		bounds: {lat: this.props.position.lat, lng: this.props.position.lon}
-  // 	})
-  // }
-
+  }
 
   _createClass(InputFields, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.initPickup();
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66299,12 +66337,16 @@ var App = /*#__PURE__*/function (_Component) {
       var gm = document.getElementById('googleMaps');
 
       if (!gm) {
-        var script = document.createElement('script');
+        var script = document.createElement('script'); // script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.MIX_MAP_API}&libraries=places&callback=initAutocomplete`;
+
         script.src = "https://maps.googleapis.com/maps/api/js?key=".concat("AIzaSyBFx-dDCkJL1tnYu0eBjTA8UBstCkDxzd8", "&libraries=places");
         script.id = 'googleMaps';
+        script.defer = true;
+        script.async = true;
         document.body.appendChild(script);
 
         script.onload = function () {
+          // google.maps.event.addDomListener(window, 'load', initAutocomplete);
           if (cb) cb();
 
           if (!_this.state.geolocation) {
@@ -66374,9 +66416,10 @@ var App = /*#__PURE__*/function (_Component) {
         className: "card"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_InputFields__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }, this.state.scriptReady && this.state.position ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_InputFields__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        position: this.state.position,
         setLocation: this.setLocation
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })) : ''), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: ""
       }, this.state.scriptReady && this.state.position ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map__WEBPACK_IMPORTED_MODULE_3__["default"], {
         position: this.state.position,

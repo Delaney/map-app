@@ -39,9 +39,17 @@ class App extends Component {
 					<div className="col-md-12">
 						<div className="card">
 							<div className="card-header">
-								<InputFields
-									setLocation={this.setLocation}
-								/>
+								{
+									this.state.scriptReady && this.state.position ?
+										<div>
+											<InputFields
+												position={this.state.position}
+												setLocation={this.setLocation}
+											/>
+										</div>
+										:
+										''
+								}
 							</div>
 
 							<div className="">
@@ -85,11 +93,15 @@ class App extends Component {
 
 		if (!gm) {
 			const script = document.createElement('script');
+			// script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.MIX_MAP_API}&libraries=places&callback=initAutocomplete`;
 			script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.MIX_MAP_API}&libraries=places`;
 			script.id = 'googleMaps';
+			script.defer = true;
+			script.async = true;
 			document.body.appendChild(script);
 
 			script.onload = () => {
+				// google.maps.event.addDomListener(window, 'load', initAutocomplete);
 				if (cb) cb();
 				if (!this.state.geolocation) {
 					document.getElementById('getLocationConsent').click();

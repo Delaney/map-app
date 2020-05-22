@@ -12,17 +12,6 @@ export default class Map extends Component {
 		};
 	}
 
-	initMap = () => {
-		const map = new google.maps.Map(document.getElementById('map'), {
-			center: {lat: this.props.position.lat, lng: this.props.position.lng},
-			zoom: 15
-		});
-
-		const infoWindow = new google.maps.InfoWindow();
-
-		this.props.onLoad(map);
-	}
-
 	componentDidMount() {
 		this.initMap();
 	}
@@ -41,5 +30,16 @@ export default class Map extends Component {
 				<div id="map" style={mapStyle}></div>
 			</div>
 		)
+	}
+
+	initMap = () => {
+		const map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: this.props.position.lat, lng: this.props.position.lng},
+			zoom: 15
+		});
+
+		const infoWindow = new google.maps.InfoWindow();
+
+		this.props.onLoad(map);
 	}
 }
