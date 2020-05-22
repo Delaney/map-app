@@ -12,6 +12,12 @@ export default class InputFields extends Component {
 		this.updateField = this.updateField.bind(this);
 	}
 
+	// componentDidMount() {
+	// 	const pickupInput = new google.maps.places.Autocomplete(document.getElementById('pickup-field'), {
+	// 		bounds: {lat: this.props.position.lat, lng: this.props.position.lon}
+	// 	})
+	// }
+
 	render() {
 		return (
 			<div className="fieldContainer">
@@ -20,6 +26,7 @@ export default class InputFields extends Component {
 						type='text'
 						placeholder="Pickup Address"
 						name='pickup'
+						id='pickup-input'
 						value={this.state.pickup}
 						onChange={this.updateField}
 					/>

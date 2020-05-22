@@ -14,7 +14,7 @@ export default class Map extends Component {
 
 	initMap = () => {
 		const map = new google.maps.Map(document.getElementById('map'), {
-			center: {lat: this.props.position.lat, lng: this.props.position.lon},
+			center: {lat: this.props.position.lat, lng: this.props.position.lng},
 			zoom: 15
 		});
 

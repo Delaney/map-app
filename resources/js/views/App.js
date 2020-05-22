@@ -6,13 +6,15 @@ import axios from 'axios';
 import Map from '../components/Map';
 import InputFields from '../components/InputFields';
 import Marker from '../components/Marker';
+import GeoModal from '../components/GeoModal';
 
 class App extends Component {
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 
 		this.state = {
 			scriptReady: false,
+			geolocation: false,
 			pickup: '',
 			dropoff: '',
 			position: null,
@@ -22,8 +24,8 @@ class App extends Component {
 		};
 
 		this.loadGMaps = this.loadGMaps.bind(this);
-		this.updateMap = this.updateMap.bind(this);
 		this.setMarker = this.setMarker.bind(this);
+		this.setCurrentLocation = this.setCurrentLocation.bind(this);
 	}
 
 	componentDidMount() {
@@ -38,7 +40,6 @@ class App extends Component {
 						<div className="card">
 							<div className="card-header">
 								<InputFields
-									onUpdate={this.searchPlaces}
 									setLocation={this.setLocation}
 								/>
 							</div>
@@ -71,6 +72,10 @@ class App extends Component {
 						</div>
 					</div>
 				</div>
+			
+				<GeoModal
+					setLocation={this.setCurrentLocation}
+				/>
 			</div>
 		);
 	}
@@ -86,8 +91,11 @@ class App extends Component {
 
 			script.onload = () => {
 				if (cb) cb();
-				this.getLocation();
-				this.setState({ scriptReady: true });
+				if (!this.state.geolocation) {
+					document.getElementById('getLocationConsent').click();
+				} else {
+					this.setState({ scriptReady: true });
+				}
 			}
 		}
 
@@ -95,36 +103,11 @@ class App extends Component {
 
 	};
 
-	updateMap = (position) => {
-		let lat = position.coords.latitude;
-		let lon = position.coords.longitude;
-
-		console.log(lat, lon);
-		
+	setCurrentLocation = (position) => {
 		this.setState({
-			position: {
-				lat: lat,
-				lon: lon
-			}
+			position: position,
+			scriptReady: true
 		});
-	}
-
-	errorHandler = (err) => {
-		if(err.code == 1) {
-			alert("Error: Access is denied!");
-		} else if( err.code == 2) {
-			alert("Error: Position is unavailable!");
-		}
-	}
-
-	getLocation = () => {
-		if(navigator.geolocation){
-			let options = { timeout:60000 };
-			navigator.geolocation.getCurrentPosition
-			(this.updateMap, this.errorHandler, options);
-		} else{
-			console.log("Sorry, browser does not support geolocation!");
-		}
 	}
 
 	setMarker = (map) => {
@@ -139,14 +122,6 @@ class App extends Component {
 			[(isPickup) ? 'pickupLocation' : 'dropoffLocation']: this.state.position
 		});
 	}
-
-	searchPlaces = (query) => {
-
-	}
-
-	// getPlaceId = (position) => {
-	// 	axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=YOUR_API_KEY`)
-	// }
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));

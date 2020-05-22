@@ -7,7 +7,7 @@ export default class Marker extends Component {
 
 	initMarker = () => {
 		const marker = new google.maps.Marker({
-			position: {lat: this.props.position.lat, lng: this.props.position.lon},
+			position: {lat: this.props.position.lat, lng: this.props.position.lng},
 			map: this.props.map
 		});
 	}

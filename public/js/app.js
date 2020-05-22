@@ -65802,6 +65802,137 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/components/GeoModal.js":
+/*!*********************************************!*\
+  !*** ./resources/js/components/GeoModal.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return GeoModal; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var GeoModal = /*#__PURE__*/function (_Component) {
+  _inherits(GeoModal, _Component);
+
+  var _super = _createSuper(GeoModal);
+
+  function GeoModal(props) {
+    var _this2;
+
+    _classCallCheck(this, GeoModal);
+
+    _this2 = _super.call(this, props);
+
+    _defineProperty(_assertThisInitialized(_this2), "getLocation", function () {
+      var _this = _assertThisInitialized(_this2);
+
+      if (navigator.geolocation) {
+        var geo = {};
+        navigator.geolocation.getCurrentPosition(function (position) {
+          geo = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+
+          _this.props.setLocation(geo);
+        });
+      } else {
+        alert("Sorry, this browser does not support geolocation!");
+      }
+    });
+
+    return _this2;
+  }
+
+  _createClass(GeoModal, [{
+    key: "render",
+    value: function render() {
+      var hidden = {
+        display: 'none'
+      };
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        style: hidden,
+        id: "getLocationConsent",
+        "data-toggle": "modal",
+        "data-target": "#locationConsentModal"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal fade",
+        id: "locationConsentModal",
+        tabIndex: "-1",
+        role: "dialog",
+        "aria-labelledby": "locationConsentModalLabel",
+        "aria-hidden": "true"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-dialog",
+        role: "document"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-content"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-header"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "modal-title",
+        id: "locationConsentModalLabel"
+      }, "Allow Location"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "close",
+        "data-dismiss": "modal",
+        "aria-label": "Close"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        "aria-hidden": "true"
+      }, "\xD7"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-body"
+      }, "This application requires access to your location."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-footer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-secondary",
+        "data-dismiss": "modal"
+      }, "Deny"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-primary",
+        "data-dismiss": "modal",
+        onClick: this.getLocation
+      }, "Allow"))))));
+    }
+  }]);
+
+  return GeoModal;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/InputFields.js":
 /*!************************************************!*\
   !*** ./resources/js/components/InputFields.js ***!
@@ -65868,7 +65999,12 @@ var InputFields = /*#__PURE__*/function (_Component) {
     };
     _this.updateField = _this.updateField.bind(_assertThisInitialized(_this));
     return _this;
-  }
+  } // componentDidMount() {
+  // 	const pickupInput = new google.maps.places.Autocomplete(document.getElementById('pickup-field'), {
+  // 		bounds: {lat: this.props.position.lat, lng: this.props.position.lon}
+  // 	})
+  // }
+
 
   _createClass(InputFields, [{
     key: "render",
@@ -65881,6 +66017,7 @@ var InputFields = /*#__PURE__*/function (_Component) {
         type: "text",
         placeholder: "Pickup Address",
         name: "pickup",
+        id: "pickup-input",
         value: this.state.pickup,
         onChange: this.updateField
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65966,7 +66103,7 @@ var Map = /*#__PURE__*/function (_Component) {
       var map = new google.maps.Map(document.getElementById('map'), {
         center: {
           lat: _this.props.position.lat,
-          lng: _this.props.position.lon
+          lng: _this.props.position.lng
         },
         zoom: 15
       });
@@ -66067,7 +66204,7 @@ var Marker = /*#__PURE__*/function (_Component) {
       var marker = new google.maps.Marker({
         position: {
           lat: _this.props.position.lat,
-          lng: _this.props.position.lon
+          lng: _this.props.position.lng
         },
         map: _this.props.map
       });
@@ -66113,6 +66250,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Map__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Map */ "./resources/js/components/Map.js");
 /* harmony import */ var _components_InputFields__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/InputFields */ "./resources/js/components/InputFields.js");
 /* harmony import */ var _components_Marker__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Marker */ "./resources/js/components/Marker.js");
+/* harmony import */ var _components_GeoModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/GeoModal */ "./resources/js/components/GeoModal.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -66144,17 +66282,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var App = /*#__PURE__*/function (_Component) {
   _inherits(App, _Component);
 
   var _super = _createSuper(App);
 
-  function App(props) {
+  function App() {
     var _this;
 
     _classCallCheck(this, App);
 
-    _this = _super.call(this, props);
+    _this = _super.call(this);
 
     _defineProperty(_assertThisInitialized(_this), "loadGMaps", function (cb) {
       var gm = document.getElementById('googleMaps');
@@ -66168,47 +66307,24 @@ var App = /*#__PURE__*/function (_Component) {
         script.onload = function () {
           if (cb) cb();
 
-          _this.getLocation();
-
-          _this.setState({
-            scriptReady: true
-          });
+          if (!_this.state.geolocation) {
+            document.getElementById('getLocationConsent').click();
+          } else {
+            _this.setState({
+              scriptReady: true
+            });
+          }
         };
       }
 
       if (gm && cb) cb();
     });
 
-    _defineProperty(_assertThisInitialized(_this), "updateMap", function (position) {
-      var lat = position.coords.latitude;
-      var lon = position.coords.longitude;
-      console.log(lat, lon);
-
+    _defineProperty(_assertThisInitialized(_this), "setCurrentLocation", function (position) {
       _this.setState({
-        position: {
-          lat: lat,
-          lon: lon
-        }
+        position: position,
+        scriptReady: true
       });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "errorHandler", function (err) {
-      if (err.code == 1) {
-        alert("Error: Access is denied!");
-      } else if (err.code == 2) {
-        alert("Error: Position is unavailable!");
-      }
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "getLocation", function () {
-      if (navigator.geolocation) {
-        var options = {
-          timeout: 60000
-        };
-        navigator.geolocation.getCurrentPosition(_this.updateMap, _this.errorHandler, options);
-      } else {
-        console.log("Sorry, browser does not support geolocation!");
-      }
     });
 
     _defineProperty(_assertThisInitialized(_this), "setMarker", function (map) {
@@ -66224,10 +66340,9 @@ var App = /*#__PURE__*/function (_Component) {
       _this.setState(_defineProperty({}, isPickup ? 'pickupLocation' : 'dropoffLocation', _this.state.position));
     });
 
-    _defineProperty(_assertThisInitialized(_this), "searchPlaces", function (query) {});
-
     _this.state = {
       scriptReady: false,
+      geolocation: false,
       pickup: '',
       dropoff: '',
       position: null,
@@ -66236,8 +66351,8 @@ var App = /*#__PURE__*/function (_Component) {
       dropoffPosition: null
     };
     _this.loadGMaps = _this.loadGMaps.bind(_assertThisInitialized(_this));
-    _this.updateMap = _this.updateMap.bind(_assertThisInitialized(_this));
     _this.setMarker = _this.setMarker.bind(_assertThisInitialized(_this));
+    _this.setCurrentLocation = _this.setCurrentLocation.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -66260,7 +66375,6 @@ var App = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_InputFields__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        onUpdate: this.searchPlaces,
         setLocation: this.setLocation
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: ""
@@ -66270,11 +66384,10 @@ var App = /*#__PURE__*/function (_Component) {
       })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Loading")), this.state.map ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Marker__WEBPACK_IMPORTED_MODULE_5__["default"], {
         position: this.state.position,
         map: this.state.map
-      }) : '')))));
-    } // getPlaceId = (position) => {
-    // 	axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=YOUR_API_KEY`)
-    // }
-
+      }) : '')))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_GeoModal__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        setLocation: this.setCurrentLocation
+      }));
+    }
   }]);
 
   return App;
