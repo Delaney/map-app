@@ -105,12 +105,35 @@ export default withRouter(class AddressSelect extends Component {
 		});
 	}
 	
+	// setLocation = (id) => {
+	// 	this.props.setLocation({
+	// 		pickup: this.props.location.state.pickupType,
+	// 		place_id: id
+	// 	});
+		
+	// }
+
 	setLocation = (id) => {
-		this.props.setLocation({
-			pickup: this.props.location.state.pickupType,
-			place_id: id
+		const types = [
+			{ a: 'pickupPosition', b: 'pickup' },
+			{ a: 'dropoffPosition', b: 'dropoff'}
+		];
+		let i = (this.props.location.state.pickupType) ? 0 : 1;
+		let _this = this;
+
+		let geocoder = new google.maps.Geocoder();
+		geocoder.geocode({'placeId': id}, (results, status) => {
+			if (status === 'OK') {
+				_this.props.setLocation({
+					[types[i].a]: {
+						lat: results[0].geometry.location.lat(),
+						lng: results[0].geometry.location.lng()
+					},
+					[types[i].b]: results[0].formatted_address
+				});
+				_this.props.history.replace('/');
+			};
 		});
-		this.props.history.replace('/');
 	}
 
 	setCurrentAsPickup = (event) => {

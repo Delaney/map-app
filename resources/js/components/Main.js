@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 
 import Map from '../components/Map';
-import Marker from '../components/Marker';
+import MapManager from '../components/MapManager';
 import AddressField from '../components/AddressField';
 
 export default withRouter(class Main extends Component {
@@ -18,14 +18,7 @@ export default withRouter(class Main extends Component {
 			redirect: null
 		};
 
-		this.setMarker = this.setMarker.bind(this);
-		this.openSelect = this.openSelect.bind(this);
-	}
-
-	componentDidMount() {
-		if (this.props.history && this.props.history.place_id) {
-			console.log(this.props.history);
-		}
+		// this.setMarker = this.setMarker.bind(this);
 	}
 
 	render() {
@@ -37,7 +30,6 @@ export default withRouter(class Main extends Component {
 							<AddressField
 								placeholder="Pickup Address"
 								value={this.props.pickup}
-								openSelect={this.openSelect}
 								pickup={true}
 							/>
 						</div>
@@ -46,35 +38,24 @@ export default withRouter(class Main extends Component {
 							<AddressField
 								placeholder="Dropoff Address"
 								value={this.props.dropoff}
-								openSelect={this.openSelect}
 								pickup={false}
 							/>
 						</div>
 				</div>
 					
-				<div>
-					<Map
-						position={this.props.position}
-						onLoad={this.setMarker}
-					/>
-				</div>
-
-				{
-					this.state.map ?
-						<Marker
-							position={this.props.position}
-							map={this.state.map}
-						/>
-						:
-						''
-				}
+				<MapManager
+					map={this.state.map}
+					position={this.props.position}
+					pickupPosition={this.props.pickupPosition}
+					dropoffPosition={this.props.dropoffPosition}
+				/>
 			</div>
 		);
 	}	
 
-	setMarker = (map) => {
-		this.setState({map: map});
-	}
+	// setMarker = (map) => {
+	// 	this.setState({map: map});
+	// }
 
 	setLocation = (name) => {
 		console.log(name);
@@ -83,10 +64,5 @@ export default withRouter(class Main extends Component {
 		this.setState({
 			[(isPickup) ? 'pickupLocation' : 'dropoffLocation']: this.state.position
 		});
-	}
-
-	openSelect = () => {
-		// this.setState({ redirect: `address` });
-		// this.props.setAppState(this.state);
 	}
 });

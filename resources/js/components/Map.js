@@ -22,7 +22,7 @@ export default class Map extends Component {
 		}
 
 		const containerStyle = {
-			height: '500px'
+			height: '600px'
 		}
 
 		return (
@@ -33,8 +33,9 @@ export default class Map extends Component {
 	}
 
 	initMap = () => {
+		let center = (this.props.pickup) ? this.props.pickup : this.props.position;
 		const map = new google.maps.Map(document.getElementById('map'), {
-			center: {lat: this.props.position.lat, lng: this.props.position.lng},
+			center: center,
 			zoom: 15
 		});
 

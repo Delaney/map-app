@@ -80,7 +80,6 @@ class App extends Component {
 
 		if (!gm) {
 			const script = document.createElement('script');
-			// script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.MIX_MAP_API}&libraries=places`;
 			script.src = `https://maps.googleapis.com/maps/api/js?v=quarterly&key=${process.env.MIX_MAP_API}&libraries=places`;
 			script.id = 'googleMaps';
 			script.defer = true;
@@ -108,30 +107,57 @@ class App extends Component {
 		});
 	};
 
+	// setAddress = new Promise(
+	// 	(resolve, reject) => {
+
+	// 	}
+	// )
+
+	// setAddress = new(data) => {
+	// 	const types = [
+	// 		{ a: 'pickupPosition', b: 'pickup' },
+	// 		{ a: 'dropoffPosition', b: 'dropoff'}
+	// 	];
+	// 	let i = (data.pickup) ? 0 : 1;
+	// 	let _this = this;
+
+	// 	let geocoder = new google.maps.Geocoder();
+	// 	geocoder.geocode({'placeId': data.place_id}, (results, status) => {
+	// 		if (status === 'OK') {
+	// 			_this.setState({
+	// 				[types[i].a]: {
+	// 					lat: results[0].geometry.location.lat(),
+	// 					lng: results[0].geometry.location.lng()
+	// 				},
+	// 				[types[i].b]: results[0].formatted_address
+	// 			});
+	// 		};
+	// 		return true;
+	// 	});
+	// }
+
 	setAddress = (data) => {
-		console.log(data);
-		const types = [
-			{ a: 'pickupPosition', b: 'pickup' },
-			{ a: 'dropoffPosition', b: 'dropoff'}
-		];
-		let i = (data.pickup) ? 0 : 1;
-		let _this = this;
+		this.setState(data);
+		// const types = [
+		// 	{ a: 'pickupPosition', b: 'pickup' },
+		// 	{ a: 'dropoffPosition', b: 'dropoff'}
+		// ];
+		// let i = (data.pickup) ? 0 : 1;
+		// let _this = this;
 
-		let geocoder = new google.maps.Geocoder();
-		geocoder.geocode({'placeId': data.place_id}, (results, status) => {
-			if (status === 'OK') {
-				console.log(results[0]);
-
-				_this.setState({
-					[types[i].a]: {
-						lat: results[0].geometry.location.lat(),
-						lng: results[0].geometry.location.lng()
-					},
-					[types[i].b]: results[0].formatted_address
-				});
-			};
-		});
-
+		// let geocoder = new google.maps.Geocoder();
+		// geocoder.geocode({'placeId': data.place_id}, (results, status) => {
+		// 	if (status === 'OK') {
+		// 		_this.setState({
+		// 			[types[i].a]: {
+		// 				lat: results[0].geometry.location.lat(),
+		// 				lng: results[0].geometry.location.lng()
+		// 			},
+		// 			[types[i].b]: results[0].formatted_address
+		// 		});
+		// 	};
+		// 	return true;
+		// });
 	}
 }
 
