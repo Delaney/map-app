@@ -6,6 +6,7 @@ import Main from '../components/Main';
 import AddressSelect from '../components/AddressSelect';
 import GeoModal from '../components/GeoModal.js';
 
+import Redirect from 'react-router-dom';
 
 class App extends Component {
 	constructor() {
@@ -23,6 +24,7 @@ class App extends Component {
 		};
 
 		this.loadGMaps = this.loadGMaps.bind(this);
+		this.setAddress = this.setAddress.bind(this);
 		this.setCurrentLocation = this.setCurrentLocation.bind(this);
 	}
 
@@ -40,8 +42,21 @@ class App extends Component {
 							?
 							<BrowserRouter>
 								<Switch>
-									<Route exact path='/' render={() => <Main position={this.state.position} />} />
-									<Route path='/address' render={() => <AddressSelect position={this.state.position} />} />
+									<Route exact path='/' render={() =>
+										<Main
+											position={this.state.position}
+											pickup={this.state.pickup}
+											pickupPosition={this.state.pickupPosition}
+											dropoff={this.state.dropoff}
+											dropoffPosition={this.state.dropoffPosition}
+										/>
+									} />
+									<Route path='/address' render={() =>
+										<AddressSelect
+											position={this.state.position}
+											setLocation={this.setAddress}
+										/>}
+									/>
 								</Switch>
 							</BrowserRouter>
 							
@@ -93,7 +108,31 @@ class App extends Component {
 		});
 	};
 
+	setAddress = (data) => {
+		console.log(data);
+		const types = [
+			{ a: 'pickupPosition', b: 'pickup' },
+			{ a: 'dropoffPosition', b: 'dropoff'}
+		];
+		let i = (data.pickup) ? 0 : 1;
+		let _this = this;
 
+		let geocoder = new google.maps.Geocoder();
+		geocoder.geocode({'placeId': data.place_id}, (results, status) => {
+			if (status === 'OK') {
+				console.log(results[0]);
+
+				_this.setState({
+					[types[i].a]: {
+						lat: results[0].geometry.location.lat(),
+						lng: results[0].geometry.location.lng()
+					},
+					[types[i].b]: results[0].formatted_address
+				});
+			};
+		});
+
+	}
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));

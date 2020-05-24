@@ -69738,6 +69738,28 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/assets/icons/back.svg":
+/*!*****************************************!*\
+  !*** ./resources/assets/icons/back.svg ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/back.svg?87e27296ef01f81f0346150ed8e58f11";
+
+/***/ }),
+
+/***/ "./resources/assets/icons/place.svg":
+/*!******************************************!*\
+  !*** ./resources/assets/icons/place.svg ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/place.svg?02f2070b4161235fe7d8909276457b53";
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -69816,9 +69838,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AddressField; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+var _temp;
+
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -69845,7 +69869,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var AddressField = /*#__PURE__*/function (_Component) {
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])((_temp = /*#__PURE__*/function (_Component) {
   _inherits(AddressField, _Component);
 
   var _super = _createSuper(AddressField);
@@ -69858,7 +69882,9 @@ var AddressField = /*#__PURE__*/function (_Component) {
     _this = _super.call(this, props);
 
     _defineProperty(_assertThisInitialized(_this), "openSelect", function () {
-      _this.props.openSelect();
+      _this.props.history.replace('/address', {
+        pickupType: _this.props.pickup
+      });
     });
 
     return _this;
@@ -69867,77 +69893,14 @@ var AddressField = /*#__PURE__*/function (_Component) {
   _createClass(AddressField, [{
     key: "render",
     value: function render() {
-      var hidden = {
-        display: 'none'
-      };
-      return (
-        /*#__PURE__*/
-        // <div className="fieldContainer" style={hidden}>
-        // <div className="fieldDiv flex-center">
-        // 	<input
-        // 		type='text'
-        // 		placeholder="Pickup Address"
-        // 		name='pickup'
-        // 		id='pickup-input'
-        // 		value={this.state.pickup}
-        // 		onChange={this.updateField}
-        // 	/>
-        // 	<div
-        // 		className="setCurrentLocation"
-        // 		data-name="pickup"
-        // 		onClick={this.setCurrentAsPickup}
-        // 	></div>
-        // </div>
-        // 	<div className="fieldDiv flex-center">
-        // 		<input
-        // 			type='text'
-        // 			placeholder="Dropoff Address"
-        // 			name='dropoff'
-        // 			value={this.state.dropoff}
-        // 			onChange={this.updateField}
-        // 		/>
-        // 		<div
-        // 			className="setCurrentLocation"
-        // 			data-name="dropoff"
-        // 			onClick={this.setCurrentAsPickup}
-        // 		></div>
-        // 	</div>
-        // </div>
-        // <div className="fieldContainer">
-        // 	<div className="fieldDiv flex-center">
-        // 		<input
-        // 			type='text'
-        // 			placeholder="Pickup Address"
-        // 			name='pickup'
-        // 			onClick={this.openSelect}
-        // 		/>	
-        // 	</div>
-        // 	<div className="fieldDiv flex-center">
-        // 		<input
-        // 			type='text'
-        // 			placeholder="Dropoff Address"
-        // 			name='dropoff'
-        // 			onClick={this.openSelect}
-        // 		/>
-        // 	</div>
-        // </div>
-        // <input
-        // 	type='text'
-        // 	placeholder="Pickup Address"
-        // 	name='pickup'
-        // 	onClick={this.openSelect}
-        // />
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          onClick: this.openSelect
-        }, this.props.value == '' ? this.props.placeholder : this.props.value)
-      );
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onClick: this.openSelect
+      }, this.props.value == '' ? this.props.placeholder : this.props.value);
     }
   }]);
 
   return AddressField;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]), _temp)));
 
 /***/ }),
 
@@ -69950,9 +69913,14 @@ var AddressField = /*#__PURE__*/function (_Component) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AddressSelect; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _PredictionList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PredictionList */ "./resources/js/components/PredictionList.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _assets_icons_back_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../assets/icons/back.svg */ "./resources/assets/icons/back.svg");
+/* harmony import */ var _assets_icons_back_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_assets_icons_back_svg__WEBPACK_IMPORTED_MODULE_3__);
+var _temp;
+
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -69979,73 +69947,91 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var AddressSelect = /*#__PURE__*/function (_Component) {
+
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])((_temp = /*#__PURE__*/function (_Component) {
   _inherits(AddressSelect, _Component);
 
   var _super = _createSuper(AddressSelect);
 
   function AddressSelect(props) {
-    var _this;
+    var _this2;
 
     _classCallCheck(this, AddressSelect);
 
-    _this = _super.call(this, props);
+    _this2 = _super.call(this, props);
 
-    _defineProperty(_assertThisInitialized(_this), "initPickup", function () {
+    _defineProperty(_assertThisInitialized(_this2), "initPickup", function () {
       var circle = new google.maps.Circle({
-        center: _this.props.position,
+        center: _this2.props.position,
         radius: 50000
       });
 
-      _this.setState({
+      _this2.setState({
         bounds: circle.getBounds()
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "fillInAddress", function () {
+    _defineProperty(_assertThisInitialized(_this2), "fillInAddress", function () {
+      var _this = _assertThisInitialized(_this2);
+
       var displaySuggestions = function displaySuggestions(predictions, status) {
         if (status != google.maps.places.PlacesServiceStatus.OK) {
-          alert(status);
+          console.log(status);
           return;
         }
 
-        console.log(predictions); // predictions.forEach(function(prediction) {
-        // 	var li = document.createElement('li');
-        // 	li.appendChild(document.createTextNode(prediction.description));
-        // 	document.getElementById('results').appendChild(li);
-        // });
+        _this.setState({
+          predictions: predictions
+        });
       };
 
       var val = document.getElementById('search-input').value;
 
       if (val) {
         var service = new google.maps.places.AutocompleteService();
-        service.getQueryPredictions({
+        service.getPlacePredictions({
           input: val,
-          bounds: _this.state.bounds
+          bounds: _this2.state.bounds,
+          types: ['address']
         }, displaySuggestions);
+      } else {
+        _this2.setState({
+          predictions: []
+        });
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "updateField", function (event) {
+    _defineProperty(_assertThisInitialized(_this2), "updateField", function (event) {
       var target = event.target;
 
-      _this.setState(_defineProperty({}, target.name, target.value));
+      _this2.setState(_defineProperty({}, target.name, target.value));
     });
 
-    _defineProperty(_assertThisInitialized(_this), "setCurrentAsPickup", function (event) {
-      _this.props.setLocation(event.target.dataset['name']);
+    _defineProperty(_assertThisInitialized(_this2), "setLocation", function (id) {
+      _this2.props.setLocation({
+        pickup: _this2.props.location.state.pickupType,
+        place_id: id
+      });
+
+      _this2.props.history.replace('/');
     });
 
-    _this.state = {
+    _defineProperty(_assertThisInitialized(_this2), "setCurrentAsPickup", function (event) {
+      _this2.props.setLocation(event.target.dataset['name']);
+    });
+
+    _this2.state = {
       bounds: null,
       pickup: '',
       dropoff: '',
-      pickupAutocomplete: null
+      pickupAutocomplete: null,
+      predictions: []
     };
-    _this.initPickup = _this.initPickup.bind(_assertThisInitialized(_this));
-    _this.updateField = _this.updateField.bind(_assertThisInitialized(_this));
-    return _this;
+    _this2.initPickup = _this2.initPickup.bind(_assertThisInitialized(_this2));
+    _this2.updateField = _this2.updateField.bind(_assertThisInitialized(_this2));
+    _this2.fillInAddress = _this2.fillInAddress.bind(_assertThisInitialized(_this2));
+    return _this2;
   }
 
   _createClass(AddressSelect, [{
@@ -70057,10 +70043,21 @@ var AddressSelect = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "pl-5 pr-5"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        className: "pl-3 pr-3 pt-3"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        to: "/",
+        className: "backLink"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "backIcon"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: _assets_icons_back_svg__WEBPACK_IMPORTED_MODULE_3___default.a
+      })), "Back"), this.props.location.state.pickupType ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
         className: "text-center"
-      }, "Address Select"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Pickup") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        className: "text-center"
+      }, "Dropoff")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "fieldDiv flex-center"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
@@ -70068,14 +70065,16 @@ var AddressSelect = /*#__PURE__*/function (_Component) {
         name: "pickup",
         id: "search-input",
         onChange: this.fillInAddress
-      })));
+      })), this.state.predictions.length ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PredictionList__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        predictions: this.state.predictions,
+        appState: this.props.appState,
+        setLocation: this.setLocation
+      }) : '');
     }
   }]);
 
   return AddressSelect;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]), _temp)));
 
 /***/ }),
 
@@ -70219,13 +70218,14 @@ var GeoModal = /*#__PURE__*/function (_Component) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Main; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_Map__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Map */ "./resources/js/components/Map.js");
-/* harmony import */ var _components_Marker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Marker */ "./resources/js/components/Marker.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _components_Map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Map */ "./resources/js/components/Map.js");
+/* harmony import */ var _components_Marker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Marker */ "./resources/js/components/Marker.js");
 /* harmony import */ var _components_AddressField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/AddressField */ "./resources/js/components/AddressField.js");
+var _temp;
+
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -70255,8 +70255,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
-var Main = /*#__PURE__*/function (_Component) {
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])((_temp = /*#__PURE__*/function (_Component) {
   _inherits(Main, _Component);
 
   var _super = _createSuper(Main);
@@ -70281,10 +70280,8 @@ var Main = /*#__PURE__*/function (_Component) {
       _this.setState(_defineProperty({}, isPickup ? 'pickupLocation' : 'dropoffLocation', _this.state.position));
     });
 
-    _defineProperty(_assertThisInitialized(_this), "openSelect", function (route) {
-      _this.setState({
-        redirect: "address"
-      });
+    _defineProperty(_assertThisInitialized(_this), "openSelect", function () {// this.setState({ redirect: `address` });
+      // this.props.setAppState(this.state);
     });
 
     _this.state = {
@@ -70301,23 +70298,35 @@ var Main = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(Main, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.props.history && this.props.history.place_id) {
+        console.log(this.props.history);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      if (this.state.redirect) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Redirect"], {
-        to: this.state.redirect
-      });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "addressBar"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
         className: "text-center"
       }, "Parcel Request"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_AddressField__WEBPACK_IMPORTED_MODULE_4__["default"], {
         placeholder: "Pickup Address",
-        value: this.state.pickup,
-        openSelect: this.openSelect
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        value: this.props.pickup,
+        openSelect: this.openSelect,
+        pickup: true
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "gap-3"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_AddressField__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        placeholder: "Dropoff Address",
+        value: this.props.dropoff,
+        openSelect: this.openSelect,
+        pickup: false
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map__WEBPACK_IMPORTED_MODULE_2__["default"], {
         position: this.props.position,
         onLoad: this.setMarker
-      })), this.state.map ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Marker__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      })), this.state.map ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Marker__WEBPACK_IMPORTED_MODULE_3__["default"], {
         position: this.props.position,
         map: this.state.map
       }) : '');
@@ -70325,9 +70334,7 @@ var Main = /*#__PURE__*/function (_Component) {
   }]);
 
   return Main;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]), _temp)));
 
 /***/ }),
 
@@ -70516,6 +70523,174 @@ var Marker = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./resources/js/components/PredictionList.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/PredictionList.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PredictionList; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _PredictionListItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PredictionListItem */ "./resources/js/components/PredictionListItem.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+var PredictionList = /*#__PURE__*/function (_Component) {
+  _inherits(PredictionList, _Component);
+
+  var _super = _createSuper(PredictionList);
+
+  function PredictionList(props) {
+    var _this;
+
+    _classCallCheck(this, PredictionList);
+
+    _this = _super.call(this, props);
+
+    _defineProperty(_assertThisInitialized(_this), "setLocation", function (id) {
+      _this.props.setLocation(id);
+    });
+
+    return _this;
+  }
+
+  _createClass(PredictionList, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "prediction-list"
+      }, this.props.predictions.map(function (prediction) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PredictionListItem__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          key: prediction.place_id,
+          item: prediction,
+          select: _this2.setLocation
+        });
+      }));
+    }
+  }]);
+
+  return PredictionList;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PredictionListItem.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/PredictionListItem.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _assets_icons_place_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/icons/place.svg */ "./resources/assets/icons/place.svg");
+/* harmony import */ var _assets_icons_place_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_assets_icons_place_svg__WEBPACK_IMPORTED_MODULE_2__);
+var _temp;
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])((_temp = /*#__PURE__*/function (_Component) {
+  _inherits(PredictionListItem, _Component);
+
+  var _super = _createSuper(PredictionListItem);
+
+  function PredictionListItem(props) {
+    var _this;
+
+    _classCallCheck(this, PredictionListItem);
+
+    _this = _super.call(this, props);
+
+    _defineProperty(_assertThisInitialized(_this), "select", function () {
+      _this.props.select(_this.props.item.place_id);
+    });
+
+    return _this;
+  }
+
+  _createClass(PredictionListItem, [{
+    key: "render",
+    value: function render() {
+      var style = {};
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        onClick: this.select
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "marker-icon"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: _assets_icons_place_svg__WEBPACK_IMPORTED_MODULE_2___default.a
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "main"
+      }, this.props.item.structured_formatting.main_text), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sub"
+      }, this.props.item.structured_formatting.secondary_text)));
+    }
+  }]);
+
+  return PredictionListItem;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]), _temp)));
+
+/***/ }),
+
 /***/ "./resources/js/views/App.js":
 /*!***********************************!*\
   !*** ./resources/js/views/App.js ***!
@@ -70564,19 +70739,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var App = /*#__PURE__*/function (_Component) {
   _inherits(App, _Component);
 
   var _super = _createSuper(App);
 
   function App() {
-    var _this;
+    var _this2;
 
     _classCallCheck(this, App);
 
-    _this = _super.call(this);
+    _this2 = _super.call(this);
 
-    _defineProperty(_assertThisInitialized(_this), "loadGMaps", function (cb) {
+    _defineProperty(_assertThisInitialized(_this2), "loadGMaps", function (cb) {
       var gm = document.getElementById('googleMaps');
 
       if (!gm) {
@@ -70591,10 +70767,10 @@ var App = /*#__PURE__*/function (_Component) {
         script.onload = function () {
           if (cb) cb();
 
-          if (!_this.state.geolocation) {
+          if (!_this2.state.geolocation) {
             document.getElementById('getLocationConsent').click();
           } else {
-            _this.setState({
+            _this2.setState({
               scriptReady: true
             });
           }
@@ -70604,14 +70780,46 @@ var App = /*#__PURE__*/function (_Component) {
       if (gm && cb) cb();
     });
 
-    _defineProperty(_assertThisInitialized(_this), "setCurrentLocation", function (position) {
-      _this.setState({
+    _defineProperty(_assertThisInitialized(_this2), "setCurrentLocation", function (position) {
+      _this2.setState({
         position: position,
         scriptReady: true
       });
     });
 
-    _this.state = {
+    _defineProperty(_assertThisInitialized(_this2), "setAddress", function (data) {
+      console.log(data);
+      var types = [{
+        a: 'pickupPosition',
+        b: 'pickup'
+      }, {
+        a: 'dropoffPosition',
+        b: 'dropoff'
+      }];
+      var i = data.pickup ? 0 : 1;
+
+      var _this = _assertThisInitialized(_this2);
+
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({
+        'placeId': data.place_id
+      }, function (results, status) {
+        if (status === 'OK') {
+          var _this$setState;
+
+          console.log(results[0]);
+
+          _this.setState((_this$setState = {}, _defineProperty(_this$setState, types[i].a, {
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng()
+          }), _defineProperty(_this$setState, types[i].b, results[0].formatted_address), _this$setState));
+        }
+
+        ;
+      });
+    });
+
+    _this2.state = {
       scriptReady: false,
       geolocation: false,
       pickup: '',
@@ -70621,9 +70829,10 @@ var App = /*#__PURE__*/function (_Component) {
       dropoffPosition: null,
       redirect: null
     };
-    _this.loadGMaps = _this.loadGMaps.bind(_assertThisInitialized(_this));
-    _this.setCurrentLocation = _this.setCurrentLocation.bind(_assertThisInitialized(_this));
-    return _this;
+    _this2.loadGMaps = _this2.loadGMaps.bind(_assertThisInitialized(_this2));
+    _this2.setAddress = _this2.setAddress.bind(_assertThisInitialized(_this2));
+    _this2.setCurrentLocation = _this2.setCurrentLocation.bind(_assertThisInitialized(_this2));
+    return _this2;
   }
 
   _createClass(App, [{
@@ -70634,7 +70843,7 @@ var App = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
@@ -70645,14 +70854,19 @@ var App = /*#__PURE__*/function (_Component) {
         path: "/",
         render: function render() {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Main__WEBPACK_IMPORTED_MODULE_3__["default"], {
-            position: _this2.state.position
+            position: _this3.state.position,
+            pickup: _this3.state.pickup,
+            pickupPosition: _this3.state.pickupPosition,
+            dropoff: _this3.state.dropoff,
+            dropoffPosition: _this3.state.dropoffPosition
           });
         }
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/address",
         render: function render() {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_AddressSelect__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            position: _this2.state.position
+            position: _this3.state.position,
+            setLocation: _this3.setAddress
           });
         }
       }))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Loading")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_GeoModal_js__WEBPACK_IMPORTED_MODULE_5__["default"], {

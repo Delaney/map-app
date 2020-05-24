@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import PredictionList from './PredictionList';
+import { Link, withRouter } from 'react-router-dom';
 
-export default class AddressSelect extends Component {
+import BackArrow from '../../assets/icons/back.svg';
+
+export default withRouter(class AddressSelect extends Component {
 	constructor(props) {
 		super(props);
 
@@ -8,11 +12,13 @@ export default class AddressSelect extends Component {
 			bounds: null,
 			pickup: '',
 			dropoff: '',
-			pickupAutocomplete: null
+			pickupAutocomplete: null,
+			predictions: []
 		}
 
 		this.initPickup = this.initPickup.bind(this);
 		this.updateField = this.updateField.bind(this);
+		this.fillInAddress = this.fillInAddress.bind(this);
 	}
 
 	componentDidMount() {
@@ -21,8 +27,18 @@ export default class AddressSelect extends Component {
 	
 	render() {
 		return(
-			<div className="pl-5 pr-5">
-				<h3 className="text-center">Address Select</h3>
+			<div className="pl-3 pr-3 pt-3">
+				<div className="row">
+					<Link to="/" className="backLink">
+						<span className="backIcon"><img src={BackArrow} /></span>
+						Back
+					</Link>
+					{
+						this.props.location.state.pickupType ?
+						<h3 className="text-center">Pickup</h3> :
+						<h3 className="text-center">Dropoff</h3>
+					}
+				</div>
 
 				<div className="fieldDiv flex-center">
 					<input
@@ -33,6 +49,13 @@ export default class AddressSelect extends Component {
 						onChange={this.fillInAddress}
 					/>	
 				</div>
+
+				{
+					this.state.predictions.length ?
+					<PredictionList predictions={this.state.predictions} appState={this.props.appState} setLocation={this.setLocation} />
+					:
+					''
+				}
 			</div>
 		)
 	}
@@ -50,28 +73,26 @@ export default class AddressSelect extends Component {
 	}
 
 	fillInAddress = () => {
+		const _this = this;
 		const displaySuggestions = function(predictions, status) {
 			if (status != google.maps.places.PlacesServiceStatus.OK) {
-				alert(status);
+				console.log(status);
 				return;
 			}
 
-			console.log(predictions);
-
-			// predictions.forEach(function(prediction) {
-			// 	var li = document.createElement('li');
-			// 	li.appendChild(document.createTextNode(prediction.description));
-			// 	document.getElementById('results').appendChild(li);
-			// });
+			_this.setState({ predictions: predictions });
 		};
 
 		let val = document.getElementById('search-input').value;
 		if (val) {
 			var service = new google.maps.places.AutocompleteService();
-			service.getQueryPredictions({
+			service.getPlacePredictions({
 				input: val,
-				bounds: this.state.bounds		
+				bounds: this.state.bounds,
+				types: ['address']	
 			}, displaySuggestions);
+		} else {
+			this.setState({ predictions: [] });
 		}
 
 	}
@@ -84,7 +105,15 @@ export default class AddressSelect extends Component {
 		});
 	}
 	
+	setLocation = (id) => {
+		this.props.setLocation({
+			pickup: this.props.location.state.pickupType,
+			place_id: id
+		});
+		this.props.history.replace('/');
+	}
+
 	setCurrentAsPickup = (event) => {
 		this.props.setLocation(event.target.dataset['name']);
 	}
-}
+});

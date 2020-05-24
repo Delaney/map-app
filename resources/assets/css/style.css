@@ -45,7 +45,75 @@ html, body {
 }
 
 
+.backLink {
+	display: flex;
+}
+
+.backLink img {
+	height: auto;
+}
+
 
 #search-input {
 	width: 100%;
+}
+
+.prediction-list {
+	/* display: flex; */
+	width: 100%;
+	/* flex-flow: row nowrap;
+	overflow: auto;
+	padding: 5px 5px 0 5px; */
+}
+
+.prediction-list li {
+	list-style: none;
+	padding: 10px 0;
+	display: grid;
+	grid-template-columns: 50px 20px auto;
+	border-bottom: 1px solid #eeeeee;
+}
+
+.prediction-list li img {
+	width: auto;
+}
+
+.prediction-list .main {
+	font-size: 16px;
+	font-weight: 900;
+}
+
+.marker-icon {
+	background: #eeeeee;
+    border-radius: 50%;
+    padding: 12px;
+    /* margin-right: 15px; */
+}
+
+.marker-icon img {
+	margin: 0 auto;
+}
+
+
+.gap, .gap-1, .gap-2, .gap-3, .gap-4, .gap-5 {
+	display: block;
+}
+
+.gap {
+	height: 5px;
+}
+.gap-1 {
+	height: 10px;
+}
+.gap-2 {
+	height: 20px;
+}
+.gap-3 {
+	height: 30px;
+}
+.gap-4 {
+	height: 40px;
+}
+.gap-5 {
+	height: 50px;
 }

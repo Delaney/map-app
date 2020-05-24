@@ -7,7 +7,7 @@
 		<title>Gokada App</title>
 
 		<!-- Fonts -->
-		<link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
 		<link href="{{ mix('css/all.css') }}" rel="stylesheet">
 	</head>

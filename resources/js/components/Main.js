@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
 
 import Map from '../components/Map';
 import Marker from '../components/Marker';
-import { Redirect, Link } from 'react-router-dom';
-
 import AddressField from '../components/AddressField';
 
-export default class Main extends Component {
+export default withRouter(class Main extends Component {
 	constructor() {
 		super();
 
@@ -23,9 +22,13 @@ export default class Main extends Component {
 		this.openSelect = this.openSelect.bind(this);
 	}
 
-	render() {
-		if (this.state.redirect) return <Redirect to={this.state.redirect} />
+	componentDidMount() {
+		if (this.props.history && this.props.history.place_id) {
+			console.log(this.props.history);
+		}
+	}
 
+	render() {
 		return (
 			<div>
 				<div className="addressBar">
@@ -33,8 +36,18 @@ export default class Main extends Component {
 						<div>
 							<AddressField
 								placeholder="Pickup Address"
-								value={this.state.pickup}
+								value={this.props.pickup}
 								openSelect={this.openSelect}
+								pickup={true}
+							/>
+						</div>
+						<div className="gap-3"></div>
+						<div>
+							<AddressField
+								placeholder="Dropoff Address"
+								value={this.props.dropoff}
+								openSelect={this.openSelect}
+								pickup={false}
 							/>
 						</div>
 				</div>
@@ -72,7 +85,8 @@ export default class Main extends Component {
 		});
 	}
 
-	openSelect = (route) => {
-		this.setState({ redirect: `address` });
+	openSelect = () => {
+		// this.setState({ redirect: `address` });
+		// this.props.setAppState(this.state);
 	}
-}
+});
