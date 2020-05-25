@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
 
 import Location from '../../assets/icons/place.svg';
 
-export default withRouter(class PredictionListItem extends Component {
+export default class PredictionListItem extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -32,4 +31,4 @@ export default withRouter(class PredictionListItem extends Component {
 	select = () => {
 		this.props.select(this.props.item.place_id);
 	}
-});
+};

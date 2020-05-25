@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import Map from './Map';
-import Marker from './Marker';
 
 export default class MapManager extends Component {
 	constructor(props) {

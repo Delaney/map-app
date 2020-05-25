@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PredictionList from './PredictionList';
-import { Link, withRouter } from 'react-router-dom';
 
 import BackArrow from '../../assets/icons/back.svg';
 
-export default withRouter(class AddressSelect extends Component {
+export default class AddressSelect extends Component {
 	constructor(props) {
 		super(props);
 
@@ -18,23 +17,23 @@ export default withRouter(class AddressSelect extends Component {
 
 		this.initPickup = this.initPickup.bind(this);
 		this.updateField = this.updateField.bind(this);
-		this.fillInAddress = this.fillInAddress.bind(this);
+		this.search = this.search.bind(this);
 	}
 
 	componentDidMount() {
-		this.initPickup();
+		console.log(this.props.status);
 	}
 	
 	render() {
 		return(
 			<div className="pl-3 pr-3 pt-3">
 				<div className="row">
-					<Link to="/" className="backLink">
+					<div className="backLink" onClick={this.back}>
 						<span className="backIcon"><img src={BackArrow} /></span>
 						Back
-					</Link>
+					</div>
 					{
-						this.props.location.state.pickupType ?
+						this.props.pickupType ?
 						<h3 className="text-center">Pickup</h3> :
 						<h3 className="text-center">Dropoff</h3>
 					}
@@ -46,7 +45,7 @@ export default withRouter(class AddressSelect extends Component {
 						placeholder="Pickup Address"
 						name='pickup'
 						id='search-input'
-						onChange={this.fillInAddress}
+						onChange={this.search}
 					/>	
 				</div>
 
@@ -72,7 +71,9 @@ export default withRouter(class AddressSelect extends Component {
 
 	}
 
-	fillInAddress = () => {
+	back = () => { }
+
+	search = () => {
 		const _this = this;
 		const displaySuggestions = function(predictions, status) {
 			if (status != _this.props.maps.places.PlacesServiceStatus.OK) {
@@ -111,7 +112,7 @@ export default withRouter(class AddressSelect extends Component {
 			{ a: 'pickupPosition', b: 'pickup' },
 			{ a: 'dropoffPosition', b: 'dropoff'}
 		];
-		let i = (this.props.location.state.pickupType) ? 0 : 1;
+		let i = (this.props.pickupType) ? 0 : 1;
 		let _this = this;
 
 		let geocoder = new this.props.maps.Geocoder();
@@ -132,4 +133,4 @@ export default withRouter(class AddressSelect extends Component {
 	setCurrentAsPickup = (event) => {
 		this.props.setLocation(event.target.dataset['name']);
 	}
-});
+};

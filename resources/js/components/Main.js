@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom'
 
-import Map from '../components/Map';
 import MapManager from '../components/MapManager';
 import AddressField from '../components/AddressField';
 
-export default withRouter(class Main extends Component {
+export default class Main extends Component {
 	constructor() {
 		super();
 
@@ -29,6 +27,7 @@ export default withRouter(class Main extends Component {
 								placeholder="Pickup Address"
 								value={this.props.pickup}
 								pickup={true}
+								openSelect={this.openSelect}
 							/>
 						</div>
 						<div className="gap-3"></div>
@@ -37,6 +36,7 @@ export default withRouter(class Main extends Component {
 								placeholder="Dropoff Address"
 								value={this.props.dropoff}
 								pickup={false}
+								openSelect={this.openSelect}
 							/>
 						</div>
 				</div>
@@ -55,4 +55,8 @@ export default withRouter(class Main extends Component {
 	setGoogleMapsObjs = (data) => {
 		this.props.setGoogleMapsObjs(data);
 	}
-});
+
+	openSelect = (pickup) => {
+		this.props.openSelect(pickup);
+	}
+};

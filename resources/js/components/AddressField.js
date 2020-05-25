@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
-import { withRouter } from 'react-router-dom';
 
-export default withRouter(class AddressField extends Component {
+export default class AddressField extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -22,7 +21,7 @@ export default withRouter(class AddressField extends Component {
 	}
 
 	openSelect = () => {
-		this.props.history.replace('/address', { pickupType: this.props.pickup });
+		this.props.openSelect(this.props.pickupType);
 	}
 
-});
+};

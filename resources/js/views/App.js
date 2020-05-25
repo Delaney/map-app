@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Main from '../components/Main';
 import AddressSelect from '../components/AddressSelect';
 import GeoModal from '../components/GeoModal.js';
-
-import Redirect from 'react-router-dom';
 
 class App extends Component {
 	constructor() {
 		super();
 
 		this.state = {
-			// scriptReady: false,
 			geolocation: false,
 			pickup: '',
 			dropoff: '',
@@ -21,7 +17,11 @@ class App extends Component {
 			pickupPosition: null,
 			dropoffPosition: null,
 			redirect: null,
-			maps: null
+			maps: null,
+			openSelect: {
+				open: false,
+				type: null
+			}
 		};
 
 		this.setAddress = this.setAddress.bind(this);
@@ -29,7 +29,6 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		// this.loadGMaps();
 		if (!this.state.geolocation) {
 			document.getElementById('getLocationConsent').click();
 		}
@@ -43,28 +42,23 @@ class App extends Component {
 						{
 							this.state.position
 							?
-							<BrowserRouter>
-								<Switch>
-									<Route exact path='/' render={() =>
-										<Main
-											position={this.state.position}
-											pickup={this.state.pickup}
-											pickupPosition={this.state.pickupPosition}
-											dropoff={this.state.dropoff}
-											dropoffPosition={this.state.dropoffPosition}
-											setGoogleMapsObjs={this.setGoogleMapsObjs}
-										/>
-									} />
-									<Route path='/address' render={() =>
-										<AddressSelect
-											position={this.state.position}
-											setLocation={this.setAddress}
-											maps={this.state.maps}
-										/>}
+							<div>
+									<Main
+										position={this.state.position}
+										pickup={this.state.pickup}
+										pickupPosition={this.state.pickupPosition}
+										dropoff={this.state.dropoff}
+										dropoffPosition={this.state.dropoffPosition}
+										setGoogleMapsObjs={this.setGoogleMapsObjs}
+										openSelect={this.openSelect}
 									/>
-								</Switch>
-							</BrowserRouter>
-							
+									<AddressSelect
+										position={this.state.position}
+										setLocation={this.setAddress}
+										maps={this.state.maps}
+										status={this.state.openSelect}
+									/>
+							</div>
 							:
 							<div>
 								<h2>Loading</h2>
@@ -79,26 +73,6 @@ class App extends Component {
 			</div>
 		)
 	}
-	
-	// loadGMaps = (cb) => {
-	// 	const gm = document.getElementById('googleMaps');
-
-	// 	if (!gm) {
-	// 		const script = document.createElement('script');
-	// 		script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.MIX_MAP_API}&libraries=places`;
-	// 		script.id = 'googleMaps';
-	// 		script.defer = true;
-	// 		script.async = true;
-	// 		document.body.appendChild(script);
-
-	// 		script.onload = () => {
-	// 			if (cb) cb();
-	// 		}
-	// 	}
-
-	// 	if (gm && cb) cb();
-
-	// };
 
 	setCurrentLocation = (position) => {
 		this.setState({
@@ -107,13 +81,11 @@ class App extends Component {
 		});
 	};
 
-	setAddress = (data) => {
-		this.setState(data);
-	}
+	setAddress = (data) => this.setState(data);
 
-	setGoogleMapsObjs = (data) => {
-		this.setState(data);
-	}
+	setGoogleMapsObjs = (data) => this.setState(data);
+
+	openSelect = (pickup) => this.setState({ openSelect: { isOpen: true, type: pickup }});
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
