@@ -94,6 +94,43 @@ html, body {
 	margin: 0 auto;
 }
 
+.marker, .marker-inner {
+	position: absolute;
+	border-radius: 100%;
+	user-select: none;
+	transform: translate(-50%, -50%);
+}
+
+.marker {
+	width: 24px;
+	height: 24px;
+	top: 50%;
+	left: 50%;
+	background-color: #00c799;
+	border: 2px solid #fff;
+}
+
+.marker-inner {
+	width: 8px;
+	height: 8px;
+	top: 10px;
+	left: 10px;
+    background-color: #fff;
+}
+
+.marker-text {
+	position: absolute;
+    left: -25px;
+    bottom: 15px;
+    background: #fff;
+    padding: 1px 3px;
+    max-width: 70px;
+    width: auto;
+	font-size: 12px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
 
 .gap, .gap-1, .gap-2, .gap-3, .gap-4, .gap-5 {
 	display: block;

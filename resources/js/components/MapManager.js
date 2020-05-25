@@ -8,7 +8,8 @@ export default class MapManager extends Component {
 		super(props);
 		this.state = {
 			marker1: null,
-			marker2: null
+			marker2: null,
+			markers: []
 		}
 
 		this.setMarker = this.setMarker.bind(this);
@@ -16,38 +17,35 @@ export default class MapManager extends Component {
 	}
 
 	componentDidMount() {
-		if (this.state.marker1) this.state.marker1.setMap(null);
-		if (this.state.marker2) this.state.marker2.setMap(null);
+		this.startMarker();
+		this.endMarker();
 	}
 
 	startMarker = () => {
-		if(this.state.map) {
-			return (this.props.pickupPosition) ? 
-				<Marker
-					number="1"
-					position={this.props.pickupPosition}
-					map={this.state.map}
-					updateMarker={this.updateMarker}
-				/> :
-				<Marker
-					number="1"
-					position={this.props.position}
-					map={this.state.map}
-					updateMarker={this.updateMarker}
-				/>
+		if (this.props.pickupPosition) {
+			this.state.markers[0] = {
+				lat: this.props.pickupPosition.lat,
+				lng: this.props.pickupPosition.lng,
+				name: "Pickup"
+			}
+		} else {
+			this.state.markers[0] = {
+				lat: this.props.position.lat,
+				lng: this.props.position.lng,
+				name: "Your Location"
+			}
 		}
 	}
 
-	endMarker = () => (this.state.map && this.props.dropoffPosition) ?
-		<Marker
-			number="2"
-			position={this.props.dropoffPosition}
-			map={this.state.map}
-			updateMarker={this.updateMarker}
-		/> :
-		''
-
-	nullF = () => null;
+	endMarker = () => {
+		if (this.props.dropoffPosition) {
+			this.state.markers[1] = {
+				lat: this.props.dropoffPosition.lat,
+				lng: this.props.dropoffPosition.lng,
+				name: "Dropoff"
+			}
+		}
+	}
 
 	render() {
 		return (
@@ -56,18 +54,12 @@ export default class MapManager extends Component {
 					<Map
 						position={this.props.position}
 						pickup={this.props.pickupPosition}
-						dropoff={this.props.dropoff}
+						dropoff={this.props.dropoffPosition}
 						onLoad={this.setMarker}
+						setGoogleMapsObjs={this.setGoogleMapsObjs}
+						markers={this.state.markers}
 					/>
 				</div>
-
-				{
-					this.startMarker()
-				}
-
-				{
-					this.endMarker()
-				}
 			</div>
 		)
 	}
@@ -77,11 +69,12 @@ export default class MapManager extends Component {
 	}
 
 	updateMarker = (data) => {
-		// console.log("Nulling map");
-		// console.log([this, data]);
-		// if (this.state[`marker${data.number}`]) this.state[`marker${data.number}`].setMap(null);
 		this.setState({
 			[`marker${data.number}`]: data.marker
 		});
+	}
+
+	setGoogleMapsObjs = (data) => {
+		this.props.setGoogleMapsObjs(data);
 	}
 }

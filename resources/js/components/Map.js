@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import GoogleMapReact, { fitBounds } from 'google-map-react';
 
 import Marker from './Marker';
 
@@ -8,39 +9,96 @@ export default class Map extends Component {
 
 		this.state = {
 			map: null,
-			infoWindow: null
+			bounds: null
 		};
-	}
 
-	componentDidMount() {
-		this.initMap();
+		this.setBounds = this.setBounds.bind(this);
 	}
 
 	render() {
-		const mapStyle = {
-			height: '100%'
-		}
-
 		const containerStyle = {
-			height: '600px'
+			height: '600px',
+			width: '100%'
 		}
 
-		return (
-			<div className="mapContainer" style={containerStyle}>
-				<div id="map" style={mapStyle}></div>
-			</div>
-		)
+		if (this.state.bounds) {
+			return (
+				<div className="mapContainer" style={containerStyle}>
+					<GoogleMapReact
+						bootstrapURLKeys={{ key: process.env.MIX_MAP_API, libraries: ["places"] }}
+						center={{ lat: this.state.bounds.getCenter().lat(), lng: this.state.bounds.getCenter().lng() }}
+						zoom={12}
+						yesIWantToUseGoogleMapApiInternals
+						onGoogleApiLoaded={({ map, maps }) => this.handleApiLoaded(map, maps)}
+					>
+						{
+							this.props.markers.map((marker) => {
+								return (
+									<Marker
+										key={marker.name}
+										text={marker.name}
+										lat={marker.lat}
+										lng={marker.lng}
+									/>
+								);
+							})
+						}
+					</GoogleMapReact>
+				</div>
+			)
+		} else {
+			return (
+				<div className="mapContainer" style={containerStyle}>
+					<GoogleMapReact
+						bootstrapURLKeys={{ key: process.env.MIX_MAP_API, libraries: ["places"] }}
+						center={(this.props.pickup) ? this.props.pickup : this.props.position}
+						zoom={12}
+						yesIWantToUseGoogleMapApiInternals
+						onGoogleApiLoaded={({ map, maps }) => this.handleApiLoaded(map, maps)}
+					>
+						{
+							this.props.markers.map((marker) => {
+								return (
+									<Marker
+										key={marker.name}
+										text={marker.name}
+										lat={marker.lat}
+										lng={marker.lng}
+									/>
+								);
+							})
+						}
+					</GoogleMapReact>
+				</div>
+			)
+		}
+
 	}
 
-	initMap = () => {
-		let center = (this.props.pickup) ? this.props.pickup : this.props.position;
-		const map = new google.maps.Map(document.getElementById('map'), {
-			center: center,
-			zoom: 15
-		});
+	handleApiLoaded = (map, maps) => {
+		this.props.setGoogleMapsObjs({ map: map, maps: maps });
 
-		const infoWindow = new google.maps.InfoWindow();
+		this.setBounds(maps);
+	}
+	
+	setBounds = (maps) => {
+		if (this.props.dropoff) {
+			let markers = this.props.markers;
+			
+			let bounds = new maps.LatLngBounds();
+			markers.forEach(marker => {
+				bounds.extend(marker);
+			});
 
-		this.props.onLoad(map);
+			console.log(bounds);
+			
+			this.setState({ bounds: bounds });
+		} else {
+			this.setState({ bounds: null });
+		}
+	}
+
+	change = () => {
+		console.log("Changed");
 	}
 }

@@ -13,23 +13,26 @@ class App extends Component {
 		super();
 
 		this.state = {
-			scriptReady: false,
+			// scriptReady: false,
 			geolocation: false,
 			pickup: '',
 			dropoff: '',
 			position: null,
 			pickupPosition: null,
 			dropoffPosition: null,
-			redirect: null
+			redirect: null,
+			maps: null
 		};
 
-		this.loadGMaps = this.loadGMaps.bind(this);
 		this.setAddress = this.setAddress.bind(this);
 		this.setCurrentLocation = this.setCurrentLocation.bind(this);
 	}
 
 	componentDidMount() {
-		this.loadGMaps();
+		// this.loadGMaps();
+		if (!this.state.geolocation) {
+			document.getElementById('getLocationConsent').click();
+		}
 	}
 
 	render() {
@@ -38,7 +41,7 @@ class App extends Component {
 				<div className="row">
 					<div className="col-md-12">
 						{
-							this.state.scriptReady && this.state.position
+							this.state.position
 							?
 							<BrowserRouter>
 								<Switch>
@@ -49,12 +52,14 @@ class App extends Component {
 											pickupPosition={this.state.pickupPosition}
 											dropoff={this.state.dropoff}
 											dropoffPosition={this.state.dropoffPosition}
+											setGoogleMapsObjs={this.setGoogleMapsObjs}
 										/>
 									} />
 									<Route path='/address' render={() =>
 										<AddressSelect
 											position={this.state.position}
 											setLocation={this.setAddress}
+											maps={this.state.maps}
 										/>}
 									/>
 								</Switch>
@@ -75,30 +80,25 @@ class App extends Component {
 		)
 	}
 	
-	loadGMaps = (cb) => {
-		const gm = document.getElementById('googleMaps');
+	// loadGMaps = (cb) => {
+	// 	const gm = document.getElementById('googleMaps');
 
-		if (!gm) {
-			const script = document.createElement('script');
-			script.src = `https://maps.googleapis.com/maps/api/js?v=quarterly&key=${process.env.MIX_MAP_API}&libraries=places`;
-			script.id = 'googleMaps';
-			script.defer = true;
-			script.async = true;
-			document.body.appendChild(script);
+	// 	if (!gm) {
+	// 		const script = document.createElement('script');
+	// 		script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.MIX_MAP_API}&libraries=places`;
+	// 		script.id = 'googleMaps';
+	// 		script.defer = true;
+	// 		script.async = true;
+	// 		document.body.appendChild(script);
 
-			script.onload = () => {
-				if (cb) cb();
-				if (!this.state.geolocation) {
-					document.getElementById('getLocationConsent').click();
-				} else {
-					this.setState({ scriptReady: true });
-				}
-			}
-		}
+	// 		script.onload = () => {
+	// 			if (cb) cb();
+	// 		}
+	// 	}
 
-		if (gm && cb) cb();
+	// 	if (gm && cb) cb();
 
-	};
+	// };
 
 	setCurrentLocation = (position) => {
 		this.setState({
@@ -107,57 +107,12 @@ class App extends Component {
 		});
 	};
 
-	// setAddress = new Promise(
-	// 	(resolve, reject) => {
-
-	// 	}
-	// )
-
-	// setAddress = new(data) => {
-	// 	const types = [
-	// 		{ a: 'pickupPosition', b: 'pickup' },
-	// 		{ a: 'dropoffPosition', b: 'dropoff'}
-	// 	];
-	// 	let i = (data.pickup) ? 0 : 1;
-	// 	let _this = this;
-
-	// 	let geocoder = new google.maps.Geocoder();
-	// 	geocoder.geocode({'placeId': data.place_id}, (results, status) => {
-	// 		if (status === 'OK') {
-	// 			_this.setState({
-	// 				[types[i].a]: {
-	// 					lat: results[0].geometry.location.lat(),
-	// 					lng: results[0].geometry.location.lng()
-	// 				},
-	// 				[types[i].b]: results[0].formatted_address
-	// 			});
-	// 		};
-	// 		return true;
-	// 	});
-	// }
-
 	setAddress = (data) => {
 		this.setState(data);
-		// const types = [
-		// 	{ a: 'pickupPosition', b: 'pickup' },
-		// 	{ a: 'dropoffPosition', b: 'dropoff'}
-		// ];
-		// let i = (data.pickup) ? 0 : 1;
-		// let _this = this;
+	}
 
-		// let geocoder = new google.maps.Geocoder();
-		// geocoder.geocode({'placeId': data.place_id}, (results, status) => {
-		// 	if (status === 'OK') {
-		// 		_this.setState({
-		// 			[types[i].a]: {
-		// 				lat: results[0].geometry.location.lat(),
-		// 				lng: results[0].geometry.location.lng()
-		// 			},
-		// 			[types[i].b]: results[0].formatted_address
-		// 		});
-		// 	};
-		// 	return true;
-		// });
+	setGoogleMapsObjs = (data) => {
+		this.setState(data);
 	}
 }
 

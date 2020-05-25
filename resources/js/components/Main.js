@@ -17,8 +17,6 @@ export default withRouter(class Main extends Component {
 			dropoffPosition: null,
 			redirect: null
 		};
-
-		// this.setMarker = this.setMarker.bind(this);
 	}
 
 	render() {
@@ -48,21 +46,13 @@ export default withRouter(class Main extends Component {
 					position={this.props.position}
 					pickupPosition={this.props.pickupPosition}
 					dropoffPosition={this.props.dropoffPosition}
+					setGoogleMapsObjs={this.setGoogleMapsObjs}
 				/>
 			</div>
 		);
-	}	
+	}
 
-	// setMarker = (map) => {
-	// 	this.setState({map: map});
-	// }
-
-	setLocation = (name) => {
-		console.log(name);
-		let isPickup = (name == 'pickup') ? true : false;
-
-		this.setState({
-			[(isPickup) ? 'pickupLocation' : 'dropoffLocation']: this.state.position
-		});
+	setGoogleMapsObjs = (data) => {
+		this.props.setGoogleMapsObjs(data);
 	}
 });
