@@ -85,7 +85,6 @@ export default withRouter(class AddressSelect extends Component {
 
 		let val = document.getElementById('search-input').value;
 		if (val) {
-			console.log(this.props.maps)
 			var service = new this.props.maps.places.AutocompleteService();
 			service.getPlacePredictions({
 				input: val,

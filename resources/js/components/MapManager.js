@@ -41,7 +41,7 @@ export default class MapManager extends Component {
 		if (this.props.dropoffPosition) {
 			this.state.markers[1] = {
 				lat: this.props.dropoffPosition.lat,
-				lng: this.props.dropoffPosition.lon,
+				lng: this.props.dropoffPosition.lng,
 				name: "Dropoff"
 			}
 		}

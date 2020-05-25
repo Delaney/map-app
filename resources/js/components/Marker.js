@@ -8,8 +8,8 @@ export default class Marker extends Component {
 	render() {
 		return (
 			<div>
-				<div className="marker-text">{this.props.name}</div>
-				<div className="marker" title={this.props.name}>
+				<span className="marker-text">{this.props.text}</span>
+				<div className="marker" title={this.props.text}>
 					<div className="marker-inner"></div>
 				</div>
 			</div>

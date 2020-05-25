@@ -30,6 +30,7 @@ export default class Map extends Component {
 				>
 					{
 						this.props.markers.map((marker) => {
+							console.log(marker);
 							return (
 								<Marker
 									key={marker.name}
