@@ -54,7 +54,7 @@ export default class MapManager extends Component {
 					<Map
 						position={this.props.position}
 						pickup={this.props.pickupPosition}
-						dropoff={this.props.dropoff}
+						dropoff={this.props.dropoffPosition}
 						onLoad={this.setMarker}
 						setGoogleMapsObjs={this.setGoogleMapsObjs}
 						markers={this.state.markers}
