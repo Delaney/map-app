@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import GoogleMapReact from 'google-map-react';
 
 import Marker from './Marker';
 
@@ -12,35 +13,39 @@ export default class Map extends Component {
 		};
 	}
 
-	componentDidMount() {
-		this.initMap();
-	}
-
 	render() {
-		const mapStyle = {
-			height: '100%'
-		}
-
 		const containerStyle = {
-			height: '600px'
+			height: '600px',
+			width: '100%'
 		}
 
 		return (
 			<div className="mapContainer" style={containerStyle}>
-				<div id="map" style={mapStyle}></div>
+				<GoogleMapReact
+					bootstrapURLKeys={{ key: process.env.MIX_MAP_API, libraries: ["places"] }}
+					defaultCenter={(this.props.pickup) ? this.props.pickup : this.props.position}
+					zoom={12}
+					yesIWantToUseGoogleMapApiInternals
+					onGoogleApiLoaded={({ map, maps }) => this.handleApiLoaded(map, maps)}
+				>
+					{
+						this.props.markers.map((marker) => {
+							return (
+								<Marker
+									key={marker.name}
+									text={marker.name}
+									lat={marker.lat}
+									lng={marker.lng}
+								/>
+							);
+						})
+					}
+				</GoogleMapReact>
 			</div>
 		)
 	}
 
-	initMap = () => {
-		let center = (this.props.pickup) ? this.props.pickup : this.props.position;
-		const map = new google.maps.Map(document.getElementById('map'), {
-			center: center,
-			zoom: 15
-		});
-
-		const infoWindow = new google.maps.InfoWindow();
-
-		this.props.onLoad(map);
+	handleApiLoaded = (map, maps) => {
+		this.props.setGoogleMapsObjs({ map: map, maps: maps });
 	}
 }

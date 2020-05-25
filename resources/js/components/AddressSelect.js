@@ -61,7 +61,7 @@ export default withRouter(class AddressSelect extends Component {
 	}
 
 	initPickup = () => {
-		const circle = new google.maps.Circle({
+		const circle = new this.props.maps.Circle({
 			center: this.props.position,
 			radius: 50000,
 		});
@@ -75,7 +75,7 @@ export default withRouter(class AddressSelect extends Component {
 	fillInAddress = () => {
 		const _this = this;
 		const displaySuggestions = function(predictions, status) {
-			if (status != google.maps.places.PlacesServiceStatus.OK) {
+			if (status != _this.props.maps.places.PlacesServiceStatus.OK) {
 				console.log(status);
 				return;
 			}
@@ -85,7 +85,8 @@ export default withRouter(class AddressSelect extends Component {
 
 		let val = document.getElementById('search-input').value;
 		if (val) {
-			var service = new google.maps.places.AutocompleteService();
+			console.log(this.props.maps)
+			var service = new this.props.maps.places.AutocompleteService();
 			service.getPlacePredictions({
 				input: val,
 				bounds: this.state.bounds,
@@ -104,13 +105,6 @@ export default withRouter(class AddressSelect extends Component {
 			[target.name]: target.value
 		});
 	}
-	
-	// setLocation = (id) => {
-	// 	this.props.setLocation({
-	// 		pickup: this.props.location.state.pickupType,
-	// 		place_id: id
-	// 	});
-		
 	// }
 
 	setLocation = (id) => {
@@ -121,7 +115,7 @@ export default withRouter(class AddressSelect extends Component {
 		let i = (this.props.location.state.pickupType) ? 0 : 1;
 		let _this = this;
 
-		let geocoder = new google.maps.Geocoder();
+		let geocoder = new this.props.maps.Geocoder();
 		geocoder.geocode({'placeId': id}, (results, status) => {
 			if (status === 'OK') {
 				_this.props.setLocation({
