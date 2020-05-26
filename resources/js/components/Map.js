@@ -23,11 +23,6 @@ export default class Map extends Component {
 	}
 
 	render() {
-		const containerStyle = {
-			height: '600px',
-			width: '100%'
-		}
-
 		const mapOptions = {
 			disableDefaultUI: true,
 			styles: [
@@ -51,7 +46,7 @@ export default class Map extends Component {
 		}
 
 		if (this.state.bounds) {
-			const mapContainer = document.getElementsByClassName('mapContainer')[0];
+			const mapContainer = document.getElementById('mapContainer');
 			const size = {
 				width: mapContainer.clientWidth,
 				height: mapContainer.clientHeight
@@ -69,12 +64,12 @@ export default class Map extends Component {
 			const {center, zoom} = fitBounds(bounds, size);
 
 			return (
-				<div className="mapContainer" style={containerStyle}>
+				<div id="mapContainer" className={(this.props.pickup && this.props.dropoff) ? "withDetails" : ""}>
 					<GoogleMapReact
 						bootstrapURLKeys={{ key: process.env.MIX_MAP_API, libraries: ["places"] }}
 						options={mapOptions}
 						center={center}
-						zoom={zoom ? zoom : 16}
+						zoom={zoom ? zoom - 1 : 16}
 						yesIWantToUseGoogleMapApiInternals
 						onGoogleApiLoaded={({ map, maps }) => this.handleApiLoaded(map, maps)}
 					>
@@ -95,7 +90,7 @@ export default class Map extends Component {
 			)
 		} else {
 			return (
-				<div className="mapContainer" style={containerStyle}>
+				<div id="mapContainer" className={(this.props.pickup && this.props.dropoff) ? "withDetails" : ""}>
 					<GoogleMapReact
 						bootstrapURLKeys={{ key: process.env.MIX_MAP_API, libraries: ["places"] }}
 						options={mapOptions}

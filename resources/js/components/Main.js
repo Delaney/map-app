@@ -11,10 +11,6 @@ export default class Main extends Component {
 		};
 	}
 
-	componentDidMount() {
-		
-	}
-
 	render() {
 		return (
 			<div>
@@ -22,13 +18,13 @@ export default class Main extends Component {
 					<h2 className="title text-center">Parcel Request</h2>
 					<div className="gap-1"></div>
 					<div>
-						<div className="addressFields" onClick={this.openSelect} data-pickup={1}>
+						<div className="addressFields" onClick={this.openSelect} data-pickup={1} style={this.props.pickup ? { color: '#000' } : {}}>
 							{ (this.props.pickup) ? this.props.pickup : "Pickup Address" }
 						</div>
 					</div>
 					<div className="gap-1"></div>
 					<div>
-						<div className="addressFields" onClick={this.props.pickupPosition ? this.openSelect : null} data-pickup={0}>
+						<div className="addressFields" onClick={this.props.pickupPosition ? this.openSelect : null} data-pickup={0} style={this.props.dropoff ? { color: '#000' } : {}}>
 							{ (this.props.dropoff) ? this.props.dropoff : "Dropoff Address" }	
 						</div>
 					</div>

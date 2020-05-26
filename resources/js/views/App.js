@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import Main from '../components/Main';
 import AddressSelect from '../components/AddressSelect';
+import TripDetails from '../components/TripDetails';
 import GeoModal from '../components/GeoModal.js';
 
 class App extends Component {
@@ -38,6 +39,9 @@ class App extends Component {
 
 	render() {
 		const modal = (this.state.geolocation) ? null : <GeoModal setLocation={this.setCurrentLocation} />;
+
+		const trip = (this.state.pickup && this.state.dropoff) ? <TripDetails /> : null;
+
 		return (
 			<div>
 				{
@@ -66,6 +70,8 @@ class App extends Component {
 						<h2>Loading</h2>
 					</div>
 				}
+				
+				{ trip }
 			
 				{ modal }
 			</div>

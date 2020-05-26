@@ -21,7 +21,6 @@ export default class AddressSelect extends Component {
 		}
 
 		this.initPickup = this.initPickup.bind(this);
-		this.updateField = this.updateField.bind(this);
 		this.search = this.search.bind(this);
 	}
 
@@ -67,6 +66,7 @@ export default class AddressSelect extends Component {
 						id='search-input'
 						autoComplete="off"
 						onChange={this.search}
+						style={{ color: '#000' }}
 					/>	
 				</div>
 
@@ -129,14 +129,6 @@ export default class AddressSelect extends Component {
 			this.setState({ predictions: [] });
 		}
 
-	}
-
-	updateField = (event) => {
-		const target = event.target;
-
-		this.setState({
-			[target.name]: target.value
-		});
 	}
 
 	setLocation = (id) => {

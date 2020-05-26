@@ -4,6 +4,29 @@ html, body {
 	margin: 0;
 }
 
+.gap, .gap-1, .gap-2, .gap-3, .gap-4, .gap-5 {
+	display: block;
+}
+
+.gap {
+	height: 5px;
+}
+.gap-1 {
+	height: 10px;
+}
+.gap-2 {
+	height: 20px;
+}
+.gap-3 {
+	height: 30px;
+}
+.gap-4 {
+	height: 40px;
+}
+.gap-5 {
+	height: 50px;
+}
+
 .flex-center {
 	align-items: center;
 	display: flex;
@@ -19,6 +42,7 @@ html, body {
 }
 
 .addressBar {
+	height: 160px;
 	padding: 2rem 1.25rem 0.75rem;
 	background: #fdfdfd;
 }
@@ -36,7 +60,6 @@ html, body {
 
 .addressFields:focus {
 	outline: none;
-	/* outline: #00c799 1px; */
 }
 
 .title {
@@ -97,6 +120,15 @@ html, body {
 	margin: 0 auto;
 }
 
+#mapContainer {
+	height: calc(100vh - 160px);
+	width: 100%;
+}
+
+/* #mapContainer.withDetails {
+	height: calc(100vh - 300px);
+} */
+
 .marker, .marker-inner {
 	position: absolute;
 	border-radius: 100%;
@@ -140,25 +172,36 @@ html, body {
 	border-radius: 7px;
 }
 
-.gap, .gap-1, .gap-2, .gap-3, .gap-4, .gap-5 {
-	display: block;
+.tripBar {
+	position: fixed;
+	bottom: 0;
+	background: #fff;
+	width: 100%;
+	height: 140px;
+	padding: 10px 20px;
 }
 
-.gap {
-	height: 5px;
+.tripDetails {
+	display: flex;
+	justify-content: space-between;
+	font-size: 16px;
+	font-weight: 700;
 }
-.gap-1 {
-	height: 10px;
+
+.tripDetails .price {
+	font-size: 18px;
 }
-.gap-2 {
-	height: 20px;
+
+.tripDetails small {
+	font-weight: 700;
 }
-.gap-3 {
-	height: 30px;
+
+.tripButton {
+	margin-top: 15px;
 }
-.gap-4 {
-	height: 40px;
-}
-.gap-5 {
-	height: 50px;
+
+.tripButton button {
+	color: #fff;
+    font-size: 16px;
+    background: #00c799;
 }

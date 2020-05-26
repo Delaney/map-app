@@ -10,7 +10,6 @@ export default class MapManager extends Component {
 		}
 
 		this.setMarker = this.setMarker.bind(this);
-		this.updateMarker = this.updateMarker.bind(this);
 	}
 
 	componentDidMount() {
@@ -51,31 +50,19 @@ export default class MapManager extends Component {
 	render() {
 		return (
 			<div>
-				<div>
-					<Map
-						position={this.props.position}
-						pickup={this.props.pickupPosition}
-						dropoff={this.props.dropoffPosition}
-						onLoad={this.setMarker}
-						setGoogleMapsObjs={this.setGoogleMapsObjs}
-						markers={this.state.markers}
-					/>
-				</div>
+				<Map
+					position={this.props.position}
+					pickup={this.props.pickupPosition}
+					dropoff={this.props.dropoffPosition}
+					onLoad={this.setMarker}
+					setGoogleMapsObjs={this.setGoogleMapsObjs}
+					markers={this.state.markers}
+				/>
 			</div>
 		)
 	}
 
-	setMarker = (map) => {
-		this.setState({map: map});
-	}
+	setMarker = (map) => this.setState({map: map});
 
-	updateMarker = (data) => {
-		this.setState({
-			[`marker${data.number}`]: data.marker
-		});
-	}
-
-	setGoogleMapsObjs = (data) => {
-		this.props.setGoogleMapsObjs(data);
-	}
+	setGoogleMapsObjs = (data) => this.props.setGoogleMapsObjs(data);
 }
