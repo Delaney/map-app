@@ -31,51 +31,48 @@ class App extends Component {
 	componentDidMount() {
 		if (!this.state.geolocation) {
 			document.getElementById('getLocationConsent').click();
+		} else {
+
 		}
 	}
 
 	render() {
+		const modal = (this.state.geolocation) ? null : <GeoModal setLocation={this.setCurrentLocation} />;
 		return (
 			<div>
-				<div className="row">
-					<div className="col-md-12">
-						{
-							this.state.position
-							?
-							<div>
-									<Main
-										position={this.state.position}
-										pickup={this.state.pickup}
-										pickupPosition={this.state.pickupPosition}
-										dropoff={this.state.dropoff}
-										dropoffPosition={this.state.dropoffPosition}
-										setGoogleMapsObjs={this.setGoogleMapsObjs}
-										openSelect={this.openSelect}
-									/>
-									<AddressSelect
-										position={this.state.position}
-										setLocation={this.setAddress}
-										maps={this.state.maps}
-										status={this.state.openSelect}
-										closeSelect={this.closeSelect}
-									/>
-							</div>
-							:
-							<div>
-								<h2>Loading</h2>
-							</div>
-						}
+				{
+					this.state.position
+					?
+					<div>
+							<Main
+								position={this.state.position}
+								pickup={this.state.pickup}
+								pickupPosition={this.state.pickupPosition}
+								dropoff={this.state.dropoff}
+								dropoffPosition={this.state.dropoffPosition}
+								setGoogleMapsObjs={this.setGoogleMapsObjs}
+								openSelect={this.openSelect}
+							/>
+							<AddressSelect
+								position={this.state.position}
+								setLocation={this.setAddress}
+								maps={this.state.maps}
+								status={this.state.openSelect}
+								closeSelect={this.closeSelect}
+							/>
 					</div>
-				</div>
+					:
+					<div>
+						<h2>Loading</h2>
+					</div>
+				}
 			
-				<GeoModal
-					setLocation={this.setCurrentLocation}
-				/>
+				{ modal }
 			</div>
 		)
 	}
 
-	setCurrentLocation = (position) => this.setState({ position: position });
+	setCurrentLocation = (position) => this.setState({ position: position, geolocation: true });
 
 	setAddress = (data) => this.setState(data);
 

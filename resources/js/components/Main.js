@@ -19,15 +19,15 @@ export default class Main extends Component {
 		return (
 			<div>
 				<div className="addressBar">
-					<h2 className="text-center">Parcel Request</h2>
+					<h2 className="title text-center">Parcel Request</h2>
 						<div>
-							<div onClick={this.openSelect} data-pickup={1}>
+							<div className="addressFields" onClick={this.openSelect} data-pickup={1}>
 								{ (this.props.pickup) ? this.props.pickup : "Pickup Address" }
 							</div>
 						</div>
-						<div className="gap-3"></div>
+						<div className="gap-1"></div>
 						<div>
-							<div onClick={this.openSelect} data-pickup={0}>
+							<div className="addressFields" onClick={this.openSelect} data-pickup={0}>
 								{ (this.props.dropoff) ? this.props.dropoff : "Dropoff Address" }	
 							</div>
 						</div>

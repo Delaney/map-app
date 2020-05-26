@@ -13,6 +13,10 @@ export default class MapManager extends Component {
 		this.updateMarker = this.updateMarker.bind(this);
 	}
 
+	componentDidMount() {
+		this.startMarker();
+	}
+
 	componentDidUpdate(prevProps) {
 		if (prevProps.pickupPosition !== this.props.pickupPosition) this.startMarker();
 		if (prevProps.dropoffPosition !== this.props.dropoffPosition) this.endMarker();
