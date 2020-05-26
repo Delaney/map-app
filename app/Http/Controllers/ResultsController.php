@@ -11,7 +11,7 @@ class ResultsController extends Controller
 {
     public function search(Request $request)
     {
-        $places = Result::where('description', 'LIKE', "%{$request->input('query')}%")->get();
+        $places = Result::where('description', 'LIKE', "%{$request->input('query')}%")->take(5)->get();
         return response()->json($places);
     }
 

@@ -133,8 +133,8 @@ export default class AddressSelect extends Component {
 			};
 
 			const searchGoogle = function() {
-				console.log("Querying Google");
-				var service = new _this.props.maps.places.AutocompleteService();
+				console.log(`No results found for ${val}, querying Google`);
+				let service = new _this.props.maps.places.AutocompleteService();
 				service.getPlacePredictions({
 					input: val,
 					bounds: _this.state.bounds,
@@ -162,33 +162,15 @@ export default class AddressSelect extends Component {
 	setLocation = (id) => {
 		let i = (this.props.status.type) ? 0 : 1;
 		let _this = this;
+		let location = (event.target.dataset.current) ? {'location': this.props.position} : {'placeId': id};
 
 		let geocoder = new this.props.maps.Geocoder();
-		geocoder.geocode({'placeId': id}, (results, status) => {
+		geocoder.geocode(location, (results, status) => {
 			if (status === 'OK') {
 				_this.props.setLocation({
 					[types[i].a]: {
 						lat: results[0].geometry.location.lat(),
 						lng: results[0].geometry.location.lng()
-					},
-					[types[i].b]: results[0].formatted_address
-				});
-				_this.back();
-			};
-		});
-	}
-
-	setCurrent = () => {
-		let i = (this.props.status.type) ? 0 : 1;
-		let _this = this;
-
-		let geocoder = new this.props.maps.Geocoder();
-		geocoder.geocode({'location': this.props.position}, (results, status) => {
-			if (status === 'OK') {
-				_this.props.setLocation({
-					[types[i].a]: {
-						lat: this.props.position.lat,
-						lng: this.props.position.lng
 					},
 					[types[i].b]: results[0].formatted_address
 				});
