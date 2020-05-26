@@ -7,12 +7,7 @@ export default class Main extends Component {
 		super();
 
 		this.state = {
-			map: null,
-			// pickup: '',
-			// dropoff: '',
-			// pickupPosition: null,
-			// dropoffPosition: null,
-			// redirect: null
+			map: null
 		};
 	}
 

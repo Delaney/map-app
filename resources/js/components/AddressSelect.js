@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import PredictionList from './PredictionList';
 
 import BackArrow from '../../assets/icons/back.svg';
+import Location from '../../assets/icons/place.svg';
 
+const types = [
+	{ a: 'pickupPosition', b: 'pickup' },
+	{ a: 'dropoffPosition', b: 'dropoff'}
+];
 export default class AddressSelect extends Component {
 	constructor(props) {
 		super(props);
@@ -66,7 +71,19 @@ export default class AddressSelect extends Component {
 					this.state.predictions.length ?
 					<PredictionList predictions={this.state.predictions} setLocation={this.setLocation} />
 					:
-					''
+					<div className="prediction-list">
+						<li onClick={this.setCurrent}>
+							<div className="marker-icon">
+								<img src={Location} />
+							</div>
+
+							<div></div>
+
+							<div>
+								<div className="main">Use current location</div>
+							</div>
+						</li>
+					</div>
 				}
 			</div>
 		)
@@ -116,13 +133,8 @@ export default class AddressSelect extends Component {
 			[target.name]: target.value
 		});
 	}
-	// }
 
 	setLocation = (id) => {
-		const types = [
-			{ a: 'pickupPosition', b: 'pickup' },
-			{ a: 'dropoffPosition', b: 'dropoff'}
-		];
 		let i = (this.props.status.type) ? 0 : 1;
 		let _this = this;
 
@@ -141,7 +153,24 @@ export default class AddressSelect extends Component {
 		});
 	}
 
-	setCurrentAsPickup = (event) => this.props.setLocation(event.target.dataset['name']);
+	setCurrent = () => {
+		let i = (this.props.status.type) ? 0 : 1;
+		let _this = this;
+
+		let geocoder = new this.props.maps.Geocoder();
+		geocoder.geocode({'location': this.props.position}, (results, status) => {
+			if (status === 'OK') {
+				_this.props.setLocation({
+					[types[i].a]: {
+						lat: this.props.position.lat,
+						lng: this.props.position.lng
+					},
+					[types[i].b]: results[0].formatted_address
+				});
+				_this.back();
+			};
+		});
+	}
 
 	back = () => {
 		document.getElementById('search-input').value = "";
