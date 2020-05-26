@@ -19,7 +19,8 @@ export default class AddressSelect extends Component {
 			pickup: '',
 			dropoff: '',
 			pickupAutocomplete: null,
-			predictions: []
+			predictions: [],
+			country: ''
 		}
 
 		this.initPickup = this.initPickup.bind(this);
@@ -79,7 +80,7 @@ export default class AddressSelect extends Component {
 					<PredictionList predictions={this.state.predictions} setLocation={this.setLocation} />
 					:
 					<div className="prediction-list">
-						<li onClick={this.setCurrent}>
+						<li onClick={this.setLocation}>
 							<div className="marker-icon">
 								<img src={Location} />
 							</div>
@@ -97,10 +98,20 @@ export default class AddressSelect extends Component {
 	}
 
 	initPickup = () => {
+		let location = { location: this.props.position };
+		const _this = this;
+
 		const circle = new this.props.maps.Circle({
 			center: this.props.position,
 			radius: 50000,
 		});
+
+		let geocoder = new this.props.maps.Geocoder();
+			geocoder.geocode(location, (results, status) => {
+				if (status === 'OK') {
+					_this.setState({ country: results[0].address_components[results[0].address_components.length - 1].short_name.toLowerCase()});
+				};
+			});
 
 		this.setState({
 			bounds: circle.getBounds()
@@ -133,12 +144,14 @@ export default class AddressSelect extends Component {
 			};
 
 			const searchGoogle = function() {
-				console.log(`No results found for ${val}, querying Google`);
 				let service = new _this.props.maps.places.AutocompleteService();
 				service.getPlacePredictions({
 					input: val,
 					bounds: _this.state.bounds,
-					types: ['address']	
+					types: ['address'],
+					componentRestrictions: {
+						country: _this.state.country
+					}
 				}, displaySuggestions);
 			}
 
@@ -162,7 +175,7 @@ export default class AddressSelect extends Component {
 	setLocation = (id) => {
 		let i = (this.props.status.type) ? 0 : 1;
 		let _this = this;
-		let location = (event.target.dataset.current) ? {'location': this.props.position} : {'placeId': id};
+		let location = (typeof id === 'string') ? { placeId: id } : { location: this.props.position };
 
 		let geocoder = new this.props.maps.Geocoder();
 		geocoder.geocode(location, (results, status) => {
