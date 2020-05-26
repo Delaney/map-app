@@ -16,10 +16,19 @@ export default class PredictionListItem extends Component {
 
 				<div></div>
 
-				<div>
-					<div className="main">{this.props.item.structured_formatting.main_text}</div>
-					<div className="sub">{this.props.item.structured_formatting.secondary_text}</div>
-				</div>
+				{
+					this.props.item.structured_formatting ?
+					<div>
+						<div className="main">{this.props.item.structured_formatting.main_text}</div>
+						<div className="sub">{this.props.item.structured_formatting.secondary_text}</div>
+					</div> :
+					<div>
+						<div className="main">{this.props.item.main_text}</div>
+						<div className="sub">{this.props.item.secondary_text}</div>
+					</div>
+
+				}
+
 			</li>
 		)
 	}

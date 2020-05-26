@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('app');
 });
+
+Route::get('results', 'ResultsController@search');
+Route::post('results/save', 'ResultsController@save');

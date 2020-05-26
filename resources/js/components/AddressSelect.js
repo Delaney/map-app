@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
 import PredictionList from './PredictionList';
 
 import BackArrow from '../../assets/icons/back.svg';
@@ -107,24 +109,50 @@ export default class AddressSelect extends Component {
 	}
 
 	search = () => {
+		let val = document.getElementById('search-input').value;
 		const _this = this;
-		const displaySuggestions = function(predictions, status) {
-			if (status != _this.props.maps.places.PlacesServiceStatus.OK) {
-				console.log(status);
-				return;
+
+		if (val) {
+			axios.get(`/results?query=${val}`).then(res => {
+				if (res.status == "200") {
+					if (!res.data.length) searchGoogle();
+					else _this.setState({ predictions: res.data });
+				}
+			}).catch(error => {
+				// console.dir(error);
+			});
+			
+			const displaySuggestions = async function(predictions, status) {
+				if (status != _this.props.maps.places.PlacesServiceStatus.OK) {
+					console.log(status);
+					return;
+				}
+
+				saveToDB(predictions);
+				_this.setState({ predictions: predictions });
+			};
+
+			const searchGoogle = function() {
+				console.log("Querying Google");
+				var service = new _this.props.maps.places.AutocompleteService();
+				service.getPlacePredictions({
+					input: val,
+					bounds: _this.state.bounds,
+					types: ['address']	
+				}, displaySuggestions);
 			}
 
-			_this.setState({ predictions: predictions });
-		};
+			const saveToDB = async (results) => {
+				let res = await axios.post('/results/save', {
+					results: results,
+					token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+				}).catch(error => {
+					console.dir(error);
+				});
+				let { data } = res.data;
+				return await data;
+			}
 
-		let val = document.getElementById('search-input').value;
-		if (val) {
-			var service = new this.props.maps.places.AutocompleteService();
-			service.getPlacePredictions({
-				input: val,
-				bounds: this.state.bounds,
-				types: ['address']	
-			}, displaySuggestions);
 		} else {
 			this.setState({ predictions: [] });
 		}
