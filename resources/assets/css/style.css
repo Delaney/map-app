@@ -64,11 +64,7 @@ html, body {
 }
 
 .prediction-list {
-	/* display: flex; */
 	width: 100%;
-	/* flex-flow: row nowrap;
-	overflow: auto;
-	padding: 5px 5px 0 5px; */
 }
 
 .prediction-list li {
@@ -92,7 +88,6 @@ html, body {
 	background: #eeeeee;
     border-radius: 50%;
     padding: 12px;
-    /* margin-right: 15px; */
 }
 
 .marker-icon img {
@@ -109,8 +104,8 @@ html, body {
 .marker {
 	width: 24px;
 	height: 24px;
-	top: 50%;
-	left: 50%;
+	/* top: 50%;
+	left: 50%; */
 	background-color: #00c799;
 	border: 2px solid #fff;
 }
@@ -125,16 +120,21 @@ html, body {
 
 .marker-text {
 	position: absolute;
-    left: -25px;
-    bottom: 15px;
-    background: #fff;
-    padding: 1px 3px;
-    max-width: 100px;
-    width: auto;
+	left: -38px;
+	bottom: 15px;
+	background: #fff;
+	padding: 6px 10px;
+	/* max-width: 150px; */
+	width: 80px;
 	font-size: 12px;
+	font-weight: 900;
+	border: 1px solid #dddddd;
 	white-space: nowrap;
 	overflow: hidden;
+	text-align: center;
 	text-overflow: ellipsis;
+	box-shadow: 0 3px 5px -5px #dddddd;
+	border-radius: 7px;
 }
 
 .gap, .gap-1, .gap-2, .gap-3, .gap-4, .gap-5 {

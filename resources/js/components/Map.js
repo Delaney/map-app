@@ -41,6 +41,11 @@ export default class Map extends Component {
 					"stylers": [
 						{ "visibility": "on" }
 					]
+				}, {
+					"featureType": "water",
+					"stylers": [
+						{ "visibility": "on" }
+					]
 				}
 			]
 		}

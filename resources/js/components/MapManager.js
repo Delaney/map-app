@@ -33,7 +33,7 @@ export default class MapManager extends Component {
 			this.state.markers[0] = {
 				lat: this.props.position.lat,
 				lng: this.props.position.lng,
-				name: "Your Location"
+				name: "Location"
 			}
 		}
 	}
