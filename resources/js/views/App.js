@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import Main from '../components/Main';
 import AddressSelect from '../components/AddressSelect';
 import TripDetails from '../components/TripDetails';
-import GeoModal from '../components/GeoModal.js';
+// import GeoModal from '../components/GeoModal.js';
 
 class App extends Component {
 	constructor() {
@@ -31,15 +31,11 @@ class App extends Component {
 
 	componentDidMount() {
 		if (!this.state.geolocation) {
-			document.getElementById('getLocationConsent').click();
-		} else {
-
+			this.setCurrentLocation();
 		}
 	}
 
 	render() {
-		const modal = (this.state.geolocation) ? null : <GeoModal setLocation={this.setCurrentLocation} />;
-
 		const trip = (this.state.pickup && this.state.dropoff) ? <TripDetails /> : null;
 
 		return (
@@ -67,18 +63,31 @@ class App extends Component {
 					</div>
 					:
 					<div>
-						<h2>Loading</h2>
+						<h2 style={{ textAlign: 'center', margin: '200px 0' }}>Loading</h2>
 					</div>
 				}
 				
 				{ trip }
-			
-				{ modal }
 			</div>
 		)
 	}
 
-	setCurrentLocation = (position) => this.setState({ position: position, geolocation: true });
+	setCurrentLocation = () => {
+		let _this = this;
+		if (navigator.geolocation) {
+			let geo = {};
+			navigator.geolocation.getCurrentPosition(function(position) {
+				geo = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};
+				_this.setState({ position: geo, geolocation: true });
+			});
+		} else {
+			alert("Sorry, this browser does not support geolocation!");
+		}
+		
+	}
 
 	setAddress = (data) => this.setState(data);
 
