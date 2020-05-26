@@ -10,7 +10,8 @@ export default class Map extends Component {
 		this.state = {
 			maps: null,
 			bounds: null,
-			dropoff: null
+			dropoff: null,
+			line: null
 		};
 
 		this.setBounds = this.setBounds.bind(this);
@@ -82,7 +83,7 @@ export default class Map extends Component {
 
 	handleApiLoaded = (map, maps) => {
 		this.props.setGoogleMapsObjs({ map: map, maps: maps });
-		this.setState({ maps: maps });
+		this.setState({ map: map, maps: maps });
 
 		this.setBounds();
 	}
@@ -94,8 +95,23 @@ export default class Map extends Component {
 			bounds.extend(this.props.dropoff);
 			
 			this.setState({ bounds: bounds });
+			this.drawLine();
 		} else {
 			this.setState({ bounds: null });
 		}
+	}
+
+	drawLine = () => {
+		if (this.state.line) this.state.line.setMap(null);
+		let coordinates = [this.props.pickup, this.props.dropoff];
+		let line = new this.state.maps.Polyline({
+			path: coordinates,
+			clickable: false,
+			geodesic: true,
+			strokeColor: '#00c799'
+		});
+
+		this.setState({ line: line });
+		line.setMap(this.state.map);
 	}
 }
