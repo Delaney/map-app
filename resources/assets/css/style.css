@@ -55,7 +55,10 @@ html, body {
 	padding: 7px 10px;
 	border: none;
     border-radius: 8px;
-    font-size: 14px;
+	font-size: 14px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 .addressFields:focus {
