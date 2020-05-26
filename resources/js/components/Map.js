@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import GoogleMapReact, { fitBounds } from 'google-map-react';
+import GoogleMapReact from 'google-map-react';
+import { fitBounds } from 'google-map-react/utils';
 
 import Marker from './Marker';
 
@@ -27,13 +28,48 @@ export default class Map extends Component {
 			width: '100%'
 		}
 
+		const mapOptions = {
+			disableDefaultUI: true,
+			styles: [
+				{
+					"stylers": [
+						{ "visibility": "off" }
+					]
+				}, {
+					"featureType": "road",
+					"elementType": "all",
+					"stylers": [
+						{ "visibility": "on" }
+					]
+				}
+			]
+		}
+
 		if (this.state.bounds) {
+			const mapContainer = document.getElementsByClassName('mapContainer')[0];
+			const size = {
+				width: mapContainer.clientWidth,
+				height: mapContainer.clientHeight
+			}
+			const bounds = {
+				ne: {
+					lat: this.state.bounds.getNorthEast().lat(),
+					lng: this.state.bounds.getNorthEast().lng()
+				},
+				sw: {
+					lat: this.state.bounds.getSouthWest().lat(),
+					lng: this.state.bounds.getSouthWest().lng()
+				}
+			}
+			const {center, zoom} = fitBounds(bounds, size);
+
 			return (
 				<div className="mapContainer" style={containerStyle}>
 					<GoogleMapReact
 						bootstrapURLKeys={{ key: process.env.MIX_MAP_API, libraries: ["places"] }}
-						center={{ lat: this.state.bounds.getCenter().lat(), lng: this.state.bounds.getCenter().lng() }}
-						zoom={12}
+						options={mapOptions}
+						center={center}
+						zoom={zoom ? zoom : 16}
 						yesIWantToUseGoogleMapApiInternals
 						onGoogleApiLoaded={({ map, maps }) => this.handleApiLoaded(map, maps)}
 					>
@@ -57,8 +93,9 @@ export default class Map extends Component {
 				<div className="mapContainer" style={containerStyle}>
 					<GoogleMapReact
 						bootstrapURLKeys={{ key: process.env.MIX_MAP_API, libraries: ["places"] }}
+						options={mapOptions}
 						center={(this.props.pickup) ? this.props.pickup : this.props.position}
-						zoom={12}
+						zoom={16}
 						yesIWantToUseGoogleMapApiInternals
 						onGoogleApiLoaded={({ map, maps }) => this.handleApiLoaded(map, maps)}
 					>

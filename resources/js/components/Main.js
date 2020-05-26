@@ -27,7 +27,7 @@ export default class Main extends Component {
 						</div>
 						<div className="gap-1"></div>
 						<div>
-							<div className="addressFields" onClick={this.openSelect} data-pickup={0}>
+							<div className="addressFields" onClick={this.props.pickupPosition ? this.openSelect : null} data-pickup={0}>
 								{ (this.props.dropoff) ? this.props.dropoff : "Dropoff Address" }	
 							</div>
 						</div>
