@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom'
 
-import Map from '../components/Map';
 import MapManager from '../components/MapManager';
-import AddressField from '../components/AddressField';
 
-export default withRouter(class Main extends Component {
+export default class Main extends Component {
 	constructor() {
 		super();
 
 		this.state = {
-			pickup: '',
-			dropoff: '',
 			map: null,
-			pickupPosition: null,
-			dropoffPosition: null,
-			redirect: null
+			// pickup: '',
+			// dropoff: '',
+			// pickupPosition: null,
+			// dropoffPosition: null,
+			// redirect: null
 		};
+	}
+
+	componentDidMount() {
+		
 	}
 
 	render() {
@@ -25,19 +26,15 @@ export default withRouter(class Main extends Component {
 				<div className="addressBar">
 					<h2 className="text-center">Parcel Request</h2>
 						<div>
-							<AddressField
-								placeholder="Pickup Address"
-								value={this.props.pickup}
-								pickup={true}
-							/>
+							<div onClick={this.openSelect} data-pickup={1}>
+								{ (this.props.pickup) ? this.props.pickup : "Pickup Address" }
+							</div>
 						</div>
 						<div className="gap-3"></div>
 						<div>
-							<AddressField
-								placeholder="Dropoff Address"
-								value={this.props.dropoff}
-								pickup={false}
-							/>
+							<div onClick={this.openSelect} data-pickup={0}>
+								{ (this.props.dropoff) ? this.props.dropoff : "Dropoff Address" }	
+							</div>
 						</div>
 				</div>
 					
@@ -52,7 +49,7 @@ export default withRouter(class Main extends Component {
 		);
 	}
 
-	setGoogleMapsObjs = (data) => {
-		this.props.setGoogleMapsObjs(data);
-	}
-});
+	setGoogleMapsObjs = (data) => this.props.setGoogleMapsObjs(data);
+
+	openSelect = (event) => this.props.openSelect(parseInt(event.target.dataset.pickup));
+};

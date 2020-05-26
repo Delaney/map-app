@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PredictionList from './PredictionList';
-import { Link, withRouter } from 'react-router-dom';
 
 import BackArrow from '../../assets/icons/back.svg';
 
-export default withRouter(class AddressSelect extends Component {
+export default class AddressSelect extends Component {
 	constructor(props) {
 		super(props);
 
@@ -18,23 +17,35 @@ export default withRouter(class AddressSelect extends Component {
 
 		this.initPickup = this.initPickup.bind(this);
 		this.updateField = this.updateField.bind(this);
-		this.fillInAddress = this.fillInAddress.bind(this);
+		this.search = this.search.bind(this);
 	}
 
-	componentDidMount() {
-		this.initPickup();
+	componentDidUpdate(prevProps) {
+		if (this.props.status.isOpen && prevProps.status.isOpen !== this.props.status.isOpen && !this.state.bounds) this.initPickup(); document.getElementById('search-input').focus();
 	}
 	
 	render() {
+		const open = {
+			position: 'absolute',
+			top: '0',
+			background: '#f8fafc',
+			height: '100%',
+			width: '100%'
+		}
+
+		const closed = { 
+			display: 'none'
+		}
+
 		return(
-			<div className="pl-3 pr-3 pt-3">
+			<div className="pl-3 pr-3 pt-3" style={(this.props.status.isOpen) ? open : closed}>
 				<div className="row">
-					<Link to="/" className="backLink">
+					<div className="backLink" onClick={this.back}>
 						<span className="backIcon"><img src={BackArrow} /></span>
 						Back
-					</Link>
+					</div>
 					{
-						this.props.location.state.pickupType ?
+						this.props.status.type ?
 						<h3 className="text-center">Pickup</h3> :
 						<h3 className="text-center">Dropoff</h3>
 					}
@@ -46,13 +57,14 @@ export default withRouter(class AddressSelect extends Component {
 						placeholder="Pickup Address"
 						name='pickup'
 						id='search-input'
-						onChange={this.fillInAddress}
+						autoComplete="off"
+						onChange={this.search}
 					/>	
 				</div>
 
 				{
 					this.state.predictions.length ?
-					<PredictionList predictions={this.state.predictions} appState={this.props.appState} setLocation={this.setLocation} />
+					<PredictionList predictions={this.state.predictions} setLocation={this.setLocation} />
 					:
 					''
 				}
@@ -72,7 +84,7 @@ export default withRouter(class AddressSelect extends Component {
 
 	}
 
-	fillInAddress = () => {
+	search = () => {
 		const _this = this;
 		const displaySuggestions = function(predictions, status) {
 			if (status != _this.props.maps.places.PlacesServiceStatus.OK) {
@@ -111,7 +123,7 @@ export default withRouter(class AddressSelect extends Component {
 			{ a: 'pickupPosition', b: 'pickup' },
 			{ a: 'dropoffPosition', b: 'dropoff'}
 		];
-		let i = (this.props.location.state.pickupType) ? 0 : 1;
+		let i = (this.props.status.type) ? 0 : 1;
 		let _this = this;
 
 		let geocoder = new this.props.maps.Geocoder();
@@ -124,12 +136,16 @@ export default withRouter(class AddressSelect extends Component {
 					},
 					[types[i].b]: results[0].formatted_address
 				});
-				_this.props.history.replace('/');
+				_this.back();
 			};
 		});
 	}
 
-	setCurrentAsPickup = (event) => {
-		this.props.setLocation(event.target.dataset['name']);
+	setCurrentAsPickup = (event) => this.props.setLocation(event.target.dataset['name']);
+
+	back = () => {
+		document.getElementById('search-input').value = "";
+		this.setState({ predictions: [] });
+		this.props.closeSelect();
 	}
-});
+};

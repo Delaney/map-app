@@ -8,11 +8,16 @@ export default class Map extends Component {
 		super(props);
 
 		this.state = {
-			map: null,
-			bounds: null
+			maps: null,
+			bounds: null,
+			dropoff: null
 		};
 
 		this.setBounds = this.setBounds.bind(this);
+	}
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.pickup !== this.props.pickup || prevProps.dropoff !== this.props.dropoff) this.setBounds();
 	}
 
 	render() {
@@ -77,28 +82,20 @@ export default class Map extends Component {
 
 	handleApiLoaded = (map, maps) => {
 		this.props.setGoogleMapsObjs({ map: map, maps: maps });
+		this.setState({ maps: maps });
 
-		this.setBounds(maps);
+		this.setBounds();
 	}
 	
-	setBounds = (maps) => {
+	setBounds = () => {
 		if (this.props.dropoff) {
-			let markers = this.props.markers;
-			
-			let bounds = new maps.LatLngBounds();
-			markers.forEach(marker => {
-				bounds.extend(marker);
-			});
-
-			console.log(bounds);
+			let bounds = new this.state.maps.LatLngBounds();
+			bounds.extend(this.props.pickup);
+			bounds.extend(this.props.dropoff);
 			
 			this.setState({ bounds: bounds });
 		} else {
 			this.setState({ bounds: null });
 		}
-	}
-
-	change = () => {
-		console.log("Changed");
 	}
 }
