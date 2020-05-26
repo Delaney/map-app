@@ -10,18 +10,6 @@ html, body {
 	justify-content: center;
 }
 
-.fieldDiv {
-	height: 30px;
-}
-
-.fieldDiv:nth-of-type(1) {
-	margin-bottom: 5px;
-}
-
-.fieldDiv input {
-	height: 100%;
-}
-
 .setCurrentLocation {
 	width: 30px;
 	height: 100%;
@@ -40,22 +28,37 @@ html, body {
 	height: 34px;
 	background: #eeeeee;
 	color: #999999;
-    padding: 7px 10px;
+	padding: 7px 10px;
+	border: none;
     border-radius: 8px;
     font-size: 14px;
 }
 
+.addressFields:focus {
+	outline: none;
+	/* outline: #00c799 1px; */
+}
+
 .title {
-	font-size: 20px;
+	font-size: 16px;
 	font-weight: 700;
 }
 
 .backLink {
 	display: flex;
+	position: absolute;
+	left: 10px;
+	font-size: 16px;
+	font-weight: 700;
 }
 
-.backLink img {
-	height: auto;
+.backIcon {
+	width: 20px;
+	margin-right: 5px;
+}
+
+.backIcon img {
+	vertical-align: baseline;
 }
 
 

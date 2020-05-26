@@ -33,9 +33,11 @@ export default class AddressSelect extends Component {
 		const open = {
 			position: 'absolute',
 			top: '0',
-			background: '#f8fafc',
+			background: '#ffffff',
 			height: '100%',
-			width: '100%'
+			width: '100%',
+			margin: '0 auto',
+			paddingTop: '2rem'
 		}
 
 		const closed = { 
@@ -43,22 +45,23 @@ export default class AddressSelect extends Component {
 		}
 
 		return(
-			<div className="pl-3 pr-3 pt-3" style={(this.props.status.isOpen) ? open : closed}>
+			<div className="pl-3 pr-3" style={(this.props.status.isOpen) ? open : closed}>
 				<div className="row">
 					<div className="backLink" onClick={this.back}>
 						<span className="backIcon"><img src={BackArrow} /></span>
 						Back
 					</div>
-					{
-						this.props.status.type ?
-						<h3 className="text-center">Pickup</h3> :
-						<h3 className="text-center">Dropoff</h3>
-					}
+					<h2 className="text-center title" style={{ width: '100%' }}>{
+						this.props.status.type ? "Pickup" : "Dropoff"
+					}</h2>
 				</div>
+
+				<div className="gap-1"></div>
 
 				<div className="fieldDiv flex-center">
 					<input
 						type='text'
+						className='addressFields'
 						placeholder="Pickup Address"
 						name='pickup'
 						id='search-input'
@@ -66,6 +69,8 @@ export default class AddressSelect extends Component {
 						onChange={this.search}
 					/>	
 				</div>
+
+				<div className="gap-3"></div>
 
 				{
 					this.state.predictions.length ?

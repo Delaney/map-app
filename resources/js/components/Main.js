@@ -20,17 +20,18 @@ export default class Main extends Component {
 			<div>
 				<div className="addressBar">
 					<h2 className="title text-center">Parcel Request</h2>
-						<div>
-							<div className="addressFields" onClick={this.openSelect} data-pickup={1}>
-								{ (this.props.pickup) ? this.props.pickup : "Pickup Address" }
-							</div>
+					<div className="gap-1"></div>
+					<div>
+						<div className="addressFields" onClick={this.openSelect} data-pickup={1}>
+							{ (this.props.pickup) ? this.props.pickup : "Pickup Address" }
 						</div>
-						<div className="gap-1"></div>
-						<div>
-							<div className="addressFields" onClick={this.props.pickupPosition ? this.openSelect : null} data-pickup={0}>
-								{ (this.props.dropoff) ? this.props.dropoff : "Dropoff Address" }	
-							</div>
+					</div>
+					<div className="gap-1"></div>
+					<div>
+						<div className="addressFields" onClick={this.props.pickupPosition ? this.openSelect : null} data-pickup={0}>
+							{ (this.props.dropoff) ? this.props.dropoff : "Dropoff Address" }	
 						</div>
+					</div>
 				</div>
 					
 				<MapManager
