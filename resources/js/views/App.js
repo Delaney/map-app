@@ -19,7 +19,7 @@ class App extends Component {
 			redirect: null,
 			maps: null,
 			openSelect: {
-				open: false,
+				isOpen: false,
 				type: null
 			}
 		};
@@ -57,6 +57,7 @@ class App extends Component {
 										setLocation={this.setAddress}
 										maps={this.state.maps}
 										status={this.state.openSelect}
+										closeSelect={this.closeSelect}
 									/>
 							</div>
 							:
@@ -74,18 +75,15 @@ class App extends Component {
 		)
 	}
 
-	setCurrentLocation = (position) => {
-		this.setState({
-			position: position,
-			scriptReady: true
-		});
-	};
+	setCurrentLocation = (position) => this.setState({ position: position });
 
 	setAddress = (data) => this.setState(data);
 
 	setGoogleMapsObjs = (data) => this.setState(data);
 
 	openSelect = (pickup) => this.setState({ openSelect: { isOpen: true, type: pickup }});
+
+	closeSelect = () => this.setState({ openSelect: { isOpen: false, type: null }});
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));

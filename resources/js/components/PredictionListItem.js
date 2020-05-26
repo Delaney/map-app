@@ -8,10 +8,6 @@ export default class PredictionListItem extends Component {
 	}
 
 	render() {
-		const style = {
-
-		}
-
 		return (
 			<li onClick={this.select}>
 				<div className="marker-icon">
@@ -28,7 +24,5 @@ export default class PredictionListItem extends Component {
 		)
 	}
 
-	select = () => {
-		this.props.select(this.props.item.place_id);
-	}
+	select = () => this.props.select(this.props.item.place_id);
 };

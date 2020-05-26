@@ -6,8 +6,6 @@ export default class MapManager extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			marker1: null,
-			marker2: null,
 			markers: []
 		}
 
@@ -15,9 +13,9 @@ export default class MapManager extends Component {
 		this.updateMarker = this.updateMarker.bind(this);
 	}
 
-	componentDidMount() {
-		this.startMarker();
-		this.endMarker();
+	componentDidUpdate(prevProps) {
+		if (prevProps.pickupPosition !== this.props.pickupPosition) this.startMarker();
+		if (prevProps.dropoffPosition !== this.props.dropoffPosition) this.endMarker();
 	}
 
 	startMarker = () => {

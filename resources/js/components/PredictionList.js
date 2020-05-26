@@ -18,7 +18,5 @@ export default class PredictionList extends Component {
 		)
 	}
 
-	setLocation = (id) => {
-		this.props.setLocation(id);
-	}
+	setLocation = (id) => this.props.setLocation(id);
 }
