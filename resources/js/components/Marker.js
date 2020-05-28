@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class Marker extends Component {
 	constructor(props) {
@@ -15,4 +16,8 @@ export default class Marker extends Component {
 			</div>
 		);
 	}
+}
+
+Marker.propTypes = {
+	text: PropTypes.string
 }

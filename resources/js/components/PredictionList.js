@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PredictionListItem from './PredictionListItem';
+import PropTypes from 'prop-types';
 
 export default class PredictionList extends Component {
 	constructor(props) {
@@ -19,4 +20,9 @@ export default class PredictionList extends Component {
 	}
 
 	setLocation = (id) => this.props.setLocation(id);
+}
+
+PredictionList.propTypes = {
+	predictions: PropTypes.array,
+	setLocation: PropTypes.func
 }

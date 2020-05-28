@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 
 import Map from './Map';
 
@@ -23,27 +24,33 @@ export default class MapManager extends Component {
 
 	startMarker = () => {
 		if (this.props.pickupPosition) {
-			this.state.markers[0] = {
+			let m = this.state.markers;
+			m[0] = {
 				lat: this.props.pickupPosition.lat,
 				lng: this.props.pickupPosition.lng,
 				name: "Pickup"
 			}
+			this.setState({ markers: m });			
 		} else {
-			this.state.markers[0] = {
+			let m = this.state.markers;
+			m[0] = {
 				lat: this.props.position.lat,
 				lng: this.props.position.lng,
 				name: "Location"
 			}
+			this.setState({ markers: m });
 		}
 	}
 
 	endMarker = () => {
 		if (this.props.dropoffPosition) {
-			this.state.markers[1] = {
+			let m = this.state.markers;
+			m[1] = {
 				lat: this.props.dropoffPosition.lat,
 				lng: this.props.dropoffPosition.lng,
 				name: "Dropoff"
 			}
+			this.setState({ markers: m });
 		}
 	}
 
@@ -65,4 +72,11 @@ export default class MapManager extends Component {
 	setMarker = (map) => this.setState({map: map});
 
 	setGoogleMapsObjs = (data) => this.props.setGoogleMapsObjs(data);
+}
+
+MapManager.propTypes = {
+	pickupPosition: PropTypes.object,
+	dropoffPosition: PropTypes.object,
+	position: PropTypes.object,
+	setGoogleMapsObjs: PropTypes.func
 }

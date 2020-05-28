@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import MapManager from '../components/MapManager';
 
@@ -44,4 +45,15 @@ export default class Main extends Component {
 	setGoogleMapsObjs = (data) => this.props.setGoogleMapsObjs(data);
 
 	openSelect = (event) => this.props.openSelect(parseInt(event.target.dataset.pickup));
+}
+
+
+Main.propTypes = {
+	pickup: PropTypes.string,
+	pickupPosition: PropTypes.object,
+	dropoff: PropTypes.string,
+	dropoffPosition: PropTypes.object,
+	position: PropTypes.object,
+	setGoogleMapsObjs: PropTypes.func,
+	openSelect: PropTypes.func
 };

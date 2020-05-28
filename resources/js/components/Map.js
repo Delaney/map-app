@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
 import { fitBounds } from 'google-map-react/utils';
 
@@ -152,3 +153,11 @@ export default class Map extends Component {
 		line.setMap(this.state.map);
 	}
 }
+
+Map.propTypes = {
+	pickup: PropTypes.object,
+	dropoff: PropTypes.object,
+	position: PropTypes.object,
+	markers: PropTypes.array,
+	setGoogleMapsObjs: PropTypes.func
+};

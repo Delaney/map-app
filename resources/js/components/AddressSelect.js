@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import PredictionList from './PredictionList';
@@ -110,7 +111,7 @@ export default class AddressSelect extends Component {
 			geocoder.geocode(location, (results, status) => {
 				if (status === 'OK') {
 					_this.setState({ country: results[0].address_components[results[0].address_components.length - 1].short_name.toLowerCase()});
-				};
+				}
 			});
 
 		this.setState({
@@ -130,7 +131,7 @@ export default class AddressSelect extends Component {
 					else _this.setState({ predictions: res.data });
 				}
 			}).catch(error => {
-				// console.dir(error);
+				console.dir(error);
 			});
 			
 			const displaySuggestions = async function(predictions, status) {
@@ -188,7 +189,7 @@ export default class AddressSelect extends Component {
 					[types[i].b]: results[0].formatted_address
 				});
 				_this.back();
-			};
+			}
 		});
 	}
 
@@ -197,4 +198,11 @@ export default class AddressSelect extends Component {
 		this.setState({ predictions: [] });
 		this.props.closeSelect();
 	}
+}
+
+AddressSelect.propTypes = {
+	status: PropTypes.object,
+	position: PropTypes.object,
+	maps: PropTypes.object,
+	closeSelect: PropTypes.func
 };

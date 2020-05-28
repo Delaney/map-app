@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Location from '../../assets/icons/place.svg';
 
@@ -34,4 +35,9 @@ export default class PredictionListItem extends Component {
 	}
 
 	select = () => this.props.select(this.props.item.place_id);
-};
+}
+
+PredictionListItem.propTypes = {
+	item: PropTypes.object,
+	select: PropTypes.func
+}
